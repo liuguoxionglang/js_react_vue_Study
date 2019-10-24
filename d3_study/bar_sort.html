@@ -1,0 +1,222 @@
+<!--
+@author Jannchie
+@email jannchie@gmail.com
+@create date 2018-07-18 08:42:38
+@modify date 2019-03-20 15:17:15
+@desc A data visualization project based on d3.js. 
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <title>动态排名数据可视化 ver1.7 By Jannchie</title>
+    <!-- <link rel="stylesheet" href="stylesheet.css">
+     -->
+     
+</head>
+
+<body>
+    <center>
+        <svg width="900" height="600"></svg>
+    </center>
+   
+</body>
+<script>
+    // 模拟数据
+    var data = [
+        {
+            date: 1900,
+            name: "Russian",
+            value: 900,
+            color:'red'
+        },
+        {
+            date: 1900,
+            name: "China",
+            value:820,
+            color:'green'
+        },
+        {
+            date: 1900,
+            name: "Japan",
+            value: 700,
+            color:'blue'
+        },
+        {
+            date: 1900,
+            name: "American",
+            value: 800,
+            color:'pink'
+        },
+    ];
+
+    /**绘制图形*/ 
+   function draw (data){
+        var lastData = [];
+         
+        // 按照value值 进行从大到小排序 
+        // 类目种类
+        var name_list = [];
+        data
+            .sort((a, b) => Number(b.value) - Number(a.value))
+            .forEach(e => {
+            if (name_list.indexOf(e.name) == -1) {
+                name_list.push(e.name);
+            }
+            });
+        console.log(data,name_list,"..........name_list");
+
+       // 获取svg画布并设置相关数据
+        const svg = d3.select("svg"),
+             svg_width = svg.attr("width"),
+             svg_height = svg.attr("height");
+        
+        const g = svg
+            .append("g");
+
+        // x轴缩放比例迟
+        var xScale = d3.scaleLinear();
+      
+        // y轴缩放比例迟
+        const yScale = d3
+            .scaleBand()
+            .paddingInner(0.3)
+            .paddingOuter(0);
+        
+         // 添加x轴
+        const xAxis = d3
+            .axisBottom()
+            .scale(xScale)
+           
+        //添加y轴  
+        const yAxis = d3
+            .axisLeft()
+            .scale(yScale)
+       
+        //
+          // 每个5秒修改数据
+        setInterval(function(){
+                lastData = data; // 保存更新之前的数据
+                data = data.map(item=>{
+                    item.date = item.date + 1;
+                    console.log(parseInt(Math.random()*1000),"ddddddddddddddd");
+                    item.value = item.value + parseInt(Math.random()*1000);
+                    return item;
+                });
+                repeatUpdateData_render();
+        },5000);
+
+        function repeatUpdateData_render(){
+            data
+            .sort((a, b) => Number(b.value) - Number(a.value))
+            .forEach(e => {
+                if (name_list.indexOf(e.name) == -1) {
+                    name_list.push(e.name);
+                }
+            });
+             console.log(data,name_list,"..........name_list");
+
+            // d3.transition("2")
+            // .each(redraw)
+            //.each(change);
+            
+            var xValue = function(d){return d.value}; // 返回x轴对应的映射值
+            var yValue = function(d){return d.name}; // 返回y轴对应的映射值
+            redraw();
+            change();
+            function redraw(){
+                console.log(">>>>>>>>redraw>>>>>>>>>>>>>>")
+                xScale
+                .domain([0, d3.max(data, function(d){return d.value})])
+                .range([0, svg_width]);
+
+                yScale
+                .domain(data.map(d => d.name).reverse())
+                .range([svg_height, 0]);
+
+                var bar = g.selectAll(".bar").data(data, function (d) {return d.name;});
+
+                var barEnter = bar
+                    .enter()
+                    .insert("g", ".axis")
+                    .attr("class", "bar")
+                    .attr("transform", function (d,i) {
+                        console.log(d,"MMMMMMMMMMMMMMM......................")
+                        return "translate(0," + yScale(d.name) + ")";
+                    });
+
+                    barEnter
+                    .append("rect")
+                    // .attr("width", function (d) {
+                    //     return xScale(data[data.length - 1].value);
+                    // })
+                    //.attr("fill-opacity", 0)
+                    .attr("height", 26)
+                    .attr("y", 50)
+                    .style("fill", (d,i) => d.color )
+                    // .transition("a")
+                    // .delay(500 * 1)
+                    // .duration(2490 * 1)
+                    .attr("y", 0)
+                    .attr("width", d => xScale(d.value))
+                    .attr("fill-opacity", 1);  
+                
+                
+                    var barUpdate = bar
+                        .transition("2")
+                        .duration(2990 * 1)
+                        .ease(d3.easeLinear);
+
+                        barUpdate
+                        .select("rect")
+                        .style("fill",(d,i) => d.color)
+                        .attr("width", d => xScale(d.value));
+
+
+
+            };
+
+            function change() {
+                // yScale
+                // .domain(data.map(d => d.name).reverse())
+                // .range([svg_height, 0]);
+                g.selectAll(".bar")
+                    .data(data, function (d) {
+                        return d.name;
+                    })
+                    .order()
+                    .transition("1")
+                    .duration(1000 * 1 * 1)
+                    .attr("transform", function (d) {
+                        return "translate(0," + yScale(d.name) + ")";
+                    });
+               
+            }
+
+
+
+        }
+
+        
+
+
+
+
+
+
+   } 
+
+
+  
+  
+  
+   // 调用绘图函数
+  draw(data);
+
+</script>
+
+</html>

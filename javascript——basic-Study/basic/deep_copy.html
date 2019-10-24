@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+  // 我们用很多简单的方法都能实现浅拷贝：
+  // arr.slice();
+  // arr.concat();
+  // 当然，我们也能用简单的办法实现深拷贝：
+  // JSON.parse(JSON.stringify(obj))
+
+  const json = {name:"lgx",info:{age:20,parent:[1,2,3]}};
+  const json2 = JSON.parse(JSON.stringify(json));
+  console.log(json2,"....josn2.....")
+
+  // 手动实现
+  function deepCopy(target){
+    if(typeof target === 'object'){
+      let copyTarget;
+      if(Array.isArray(target)){
+        copyTarget = [];
+        for(let i=0;i<target.length;i++){
+          copyTarget[i]=deepCopy[target[i]];
+        }
+      }
+      if(target instanceof Object){
+        copyTarget = {};
+        for(let key in target) {
+          copyTarget[key] = deepCopy(target[key])
+        }
+      }
+      return copyTarget;
+
+    }else {
+      return target;
+    }
+
+  }
+
+  const json3 = deepCopy(json);
+  console.log(json3,"...json3....手动实现.")
+
+</script>
+</html>

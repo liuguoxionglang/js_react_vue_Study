@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>毛玻璃蒙版</title>
+    <style>
+            .main_content{
+                position: relative; 
+                height:200px; 
+                width:300px;
+                background: fixed url(https://raw.githubusercontent.com/liuguoxionglang/react-redux/master/p.jpg);
+            }
+            .blur-content{
+                position: absolute;
+                height:50px; 
+                width:300px;
+                top: 150px;
+                background: fixed url(https://raw.githubusercontent.com/liuguoxionglang/react-redux/master/p.jpg);
+                filter:blur(1rem)
+            }
+            .desc_content{
+                position: absolute; 
+                height:50px; 
+                width:300px;
+                top: 150px;
+                background: rgba(0,0,0,.3);
+                color: white
+            }
+            </style>
+</head>
+<body>
+        
+        <div class='main_content'>
+            <div class='blur-content'></div>
+            <div class='desc_content'> 简单的描述 </div>
+        </div>
+    
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+</head>
+<body>
+<button type="button" name="button">点击</button>
+
+</body>
+<script type="text/javascript">
+  //var cb = $.Callbacks();
+  //setTimeout(function() {
+  // alert(111);
+  //   cb.fire();
+  // },1000)
+  // function a(){
+  //   alert(222)
+  // }
+  // cb.add(a);
+
+ // var df = $.Deferred();
+ // setTimeout(function() {
+ //   alert(111);
+ //   df.resolve();
+ // },1000)
+ // function a(){
+ //   alert(222)
+ // }
+ // df.done(a);
+
+
+ // setTimeout(function() {
+ //   alert(111);
+ // },1000)
+ // alert(222)
+
+
+ // var df = $.Deferred();
+ // setTimeout(function() {
+ //   df.resolve(); //成功
+ //   df.reject(); //失败
+ //
+ // },1000)
+ // function suc(){
+ //   alert(‘成功’)
+ // }
+ // function fail(){
+ //   alert("失败")
+ // }
+ // df.done(suc).fail(fail);
+
+
+
+ // var df = $.Deferred();
+ // setInterval(function() {
+ //   alert(111)
+ //   df.resolve(); //成功
+ //   //df.reject(); //失败
+ //   df.notify();
+ // },1000)
+ // function suc(){
+ //   alert(‘成功’)
+ // }
+ // function fail(){
+ //   alert("失败")
+ // }
+ // function pro(){
+ //   alert("进行")
+ //
+ // }
+ // df.done(suc).fail(fail).progress(pro);
+
+
+// var df = $.Deferred();
+//  setTimeout(function() {
+//    alert(1111)
+//    df.resolve();
+//  },1000)
+//  function suc(){
+//    alert("‘成功’")
+//  }
+//  df.done(suc)
+//  $('button').click(function() {
+//     df.done(function(){
+//       alert('成功。。。。。。。。。。');
+//     })
+//  })
+
+
+// function dfff(){
+//   var df = $.Deferred();
+//   setTimeout(function() {
+//     // alert(111)
+//     // df.resolve();
+//   },1000)
+//   // return df;  // 返回的是defrered对象
+//   return df.promise(); // 返回的是promise对象
+//
+// }
+//
+// const df = new dfff();
+// function suc(){
+//   alert("‘成功’")
+// }
+// function fl(){
+//   alert("失败")
+// }
+//
+// df.done(suc).fail(fl);
+// df.reject();
+
+
+
+
+// var df = $.Deferred();
+// setTimeout(function() {
+//   //df.resolve(); //hello
+//   // df.reject(); //hello
+// },1000)
+// function suc(){
+//   alert("hello")
+// }
+// df.always(suc);
+
+
+
+// var df = $.Deferred();
+// setTimeout(function() {
+//   // df.resolve(); //成功
+//   // df.reject(); //失败
+//   // df.notify();//pro
+// },1000)
+// function suc(){
+//   alert("‘成功’")
+// }
+// function fl(){
+//   alert("失败")
+// }
+// function pro(){
+//   alert("pro")
+// }
+// df.then(suc,fl,pro)
+
+
+// var df = $.Deferred();
+// setTimeout(function() {
+//   df.resolve('lel'); //成功
+// },1000)
+//  var newdf = df.pipe(function(){
+//   return arguments[0]+"----miaov"
+// });
+// newdf.done(function(){
+//   alert(arguments[0])
+// })
+
+
+
+function a() {
+  var df = $.Deferred();
+  // df.resolve();
+  // df.reject();
+  return df;
+}
+function b() {
+  var df = $.Deferred();
+  df.resolve();
+  // df.reject();
+  return df;
+}
+//两个状态都完成后，再触发回调函数
+$.when(a(),b()).done(function(){
+  alert('成功')
+}).fail(function(){alert("失败")})
+$.when(a(),111).done(function(){
+  alert('成功')
+}).fail(function(){alert("失败")})
+
+$.when().done(function(){
+  alert('成功')
+}).fail(function(){alert("失败")})
+
+
+
+
+
+</script>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+</head>
+<body>
+  <div id="div1">
+    <input type="text">
+  </div>
+
+</body>
+<script type="text/javascript">
+  var support = $.support;
+  console.log(support);
+  var div1 =  document.getElementById("div1");
+  div1.onfocus = function(){
+    alert("1111")
+  }
+  //ie下支持的事件
+  div1.onfocusin = function(){
+    alert("2222")
+  }
+
+  var div2 = document.createElement('div');
+  div2.style.backgroudColor ='red';
+  div2.cloneNode(true).style.backgroudColor = '';
+  alert(div2.style.backgroudColor);
+
+  var div3 = document.createElement('div');
+  div3.style.backgroundClip = "content-box";
+  div3.cloneNode(true).style.backgroundClip = "";
+  alert(div3.style.backgroundClip)
+
+  var div4 = $('<div>');
+  div4.css({"backgroundClip":"content-box"});
+  div4.cloneNode(true).css({"backgroundClip":""});
+  alert(div4.style.backgroundClip)
+
+
+
+
+</script>
+</html>

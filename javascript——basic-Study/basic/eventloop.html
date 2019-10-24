@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>浏览器事件循环机制</title>
+</head>
+<body>
+
+</body>
+<script>
+  /**
+   * javascript是单线程 // 浏览器多线程：js执行线程，ui线程，事件线程
+   * js线程与ui线程是互斥的；
+   * js任务（js代码）:分为同步任务和异步任务
+   *同步任务：js主线程就执行了
+   *异步任务(包括dom事件，ajax事件，bom)，主线程执行部分，退出主线程执行，等异步任务再次准备好好，再次交给主线程执行
+   *
+   *  总结：javascript的代码是队列的形式一个一个的执行，同一时间只能执行一端代码
+   *
+   * @return {[type]} [description]
+   */
+  function a(){
+
+  }
+</script>
+</html>

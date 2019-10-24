@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <title>Document</title>
+    <style>
+      #container {
+          padding-top: 20px
+
+      }
+    
+    </style>
+</head>
+<body>
+        <!-- <svg>
+                <polyline points="60 110, 100 115, 75 180" />
+                <!-- <polygon points="60 110, 100 115, 75 180,60 160,60 110"/> -->
+        </svg> -->
+        
+    <div id="container">
+
+    </div>
+</body>
+<script>
+    var data = [
+        {name:"a",val:52},
+        {name:"bb",val:63},
+        {name:"c",val:22},
+        {name:"dd",val:40},
+    ];
+    var width = 400,
+       height = 400;
+    // 生成默认颜色
+    console.log(d3,"...............d333333333333")
+    var color = ["red","blue","green","yellow",]
+    // 创建svg元素
+    var svg = d3.select('#container')
+                .append("svg")
+                .attr("width",width)
+                .attr("height",height);
+
+    //svg中添加g元素
+    var g = svg.append("g").attr("transform","translate(200,200)");
+
+    // 创建arc
+    var arc = d3.arc().innerRadius(100).outerRadius(200);
+
+    // 处理数据
+    var pie = d3.pie().value(function(d){return d.val});
+
+    console.log(pie(data));
+
+    // 添加数据
+    g.selectAll("path")
+    .data(pie(data))
+    .enter()
+    .append("path")
+    .attr("d",arc)
+    .style("fill",function(d,i){return color[i]})
+
+    // 添加标签数据
+    g.selectAll("text")
+    .data(pie(data))
+    .enter()
+    .append("text")
+    .text(function(d){return d.data.name})
+    .attr("transform",function(d){return `translate(${arc.centroid(d)})`})
+    .attr("text-anchor","middle")
+
+
+</script>
+</html>

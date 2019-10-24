@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script src="https://cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+<script type="text/javascript">
+  /*
+   *   $.extend()
+   *    $.fn.extend()
+   *  当只写一个对象自变量的时候，就是Jq中扩展插件的形式
+   *
+   */
+
+  //扩展工具方法
+  $.extend({
+    aaa:function(){
+      alert(1)
+    },
+    bbb:function(){
+      alert(2)
+    },
+  })
+  $.aaa();
+  $.bbb();
+  //扩展jq实例方法
+  $.fn.extend({
+    aaa:function(){
+      alert(3)
+    },
+    bbb:function(){
+      alert(42)
+    },
+  })
+  $().aaa();
+  $().bbb();
+
+
+  //当写多个对象自变量的时候，后面的对象都扩展到第一个对象上
+var a ={}
+$.extend(a,{"name":111},{"age":99})
+console.log(a)
+
+//还可以做，深拷贝和浅拷贝
+var v = {}
+var v1 = {name:"mmm"}
+$.extend(v,v1)
+v.name ="hello"
+alert(v1.name)
+
+var v2 = {}
+var v3 = {name:{age:'14'}}
+$.extend(v2,v3)
+v2.name.age = 22
+alert(v3.name.age)
+//此时需要深拷贝 $.extend()的第一个参数设置为true
+
+
+// <!-- 防止循环引用 -->
+var n = {};
+$.extend(n,{name:n});
+
+// js继承：类式继承 、原型继承
+// jq中继承：拷贝继承
+
+
+
+
+
+
+</script>
+</html>

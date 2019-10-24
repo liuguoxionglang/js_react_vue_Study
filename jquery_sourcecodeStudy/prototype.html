@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <ul>
+    <li id="id1"></li>
+    <li></li>
+    <li></li>
+  </ul>
+  <div>11111</div>
+  <div>2222222</div>
+  <div id="div33">3333333333</div>
+ <span> span</span>
+
+
+</body>
+<script src="https://cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+<script type="text/javascript">
+  //"use strict"
+
+   console.log(window.a == undefined)
+   console.log(typeof window.a =='undefined')
+   /**
+    * juery.prototype = {
+    *   version:'',
+    *   constructor:'',
+    *   init() 初始化和参数管理
+    *   selector:存储选择字符串
+    *   length:this对象的长度
+    *   toArray():转数组
+    *   get():转原生集合
+    *   pushStack():jQuery对象的入栈
+    *   each（）：遍历集合
+    *   ready()：dom加载的接口
+    *   slice():集合的截取
+    *   first():集合的第一项
+    *   last():集合的最后一项
+    *   eq():集合的指定项
+    *   map():返回新集合
+    *   end():返回集合的前一个状态
+    *   push():内部使用
+    *   sort():内部使用
+    *   splice():内部使用
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    * }
+    */
+  function init() {
+
+
+  }
+
+  $(function(){
+    //$('li').css('background','red');
+    //console.log($('li').css('background','red'),"....this={}....");
+    console.log($('#id1'));
+    //$('li')[1].style.background = 'red'
+
+
+  // var divs = document.getElementsByTagName('div');
+  // console.log(divs,"document...get.....")
+  // var divarr = $.makeArray(divs);
+  // var divarr22 = $.makeArray(divs,{length:0});
+  // console.log(divarr,"makeArray....1参数....");
+  // console.log(divarr22,"makeArray...2参数.....");
+  // var arr =$('div').toArray();
+  // console.log(arr,"toArray........");
+  // console.log($('div').get(0));
+  // //jquery对象转化 成原生的dom对象了
+  // $('div').get(0).innerHTML='2222'
+  //
+  // $('#div33').pushStack($('span')).css({'background':'red'}).css({'background':'yellow'})
+  // $('#div33').pushStack($('span')).css({'background':'red'}).end().css({'background':'yellow'})
+
+  console.log(  $('#div33').pushStack($('span')),'...........pushStack.......');
+  $('div').slice(1,3).css({'background':'pink'}).end().css({'color':'red'});
+
+
+
+
+
+  })
+
+
+
+
+</script>
+</html>

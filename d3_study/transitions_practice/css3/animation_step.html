@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        @keyframes typing {
+            from { width: 100% }
+            to { width:0 }
+        }
+ 
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: black }
+        }
+ 
+        @-moz-keyframes typing {
+            from { width: 100% }
+            to { width:0 }
+        }
+ 
+        @-moz-keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: red }
+        }
+ 
+        body { font-family:  monospace; }
+ 
+        h1 {
+            position: relative;
+            float: left;
+            font-size:150%;
+            /* border: 1px solid red; */
+        }
+ 
+        h1 span {
+            position:absolute;
+            top:0;
+            right:0;
+            width:0;
+            /* border: 1px solid greenyellow; */
+            background: white; /* same as background */
+            border-left: .1em solid black;
+            box-sizing: border-box;
+ 
+            -webkit-animation: typing 17s steps(30, end), /* # of steps = # of characters */
+            blink-caret 1s step-end infinite;
+            -moz-animation: typing 17s steps(30, end), /* # of steps = # of characters */
+            blink-caret 1s step-end infinite;
+        }
+    </style>
+</head>
+<body>
+<h1>HELLO WORLD. Typing animation By Yaiel_lvya.<span> </span></h1>
+</body>
+</html>

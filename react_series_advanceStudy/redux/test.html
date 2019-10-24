@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+
+    var funcs = [];
+    function func_1(state){
+        console.log(state,"...........func_1");
+        return ++state
+    }
+    function func_2(state){
+        console.log(state,"...........func_2");
+        return ++state
+    }
+    function func_3(state){
+        console.log(state,"...........func_3");
+        return ++state
+    }
+    function func_4(state){
+        console.log(state,"...........func_4");
+        return ++state
+    }
+    funcs.push(func_1);
+    funcs.push(func_2);
+    funcs.push(func_3);
+    funcs.push(func_4);
+   var aa =  funcs.reduce(function (a, b) {
+        return function () {
+            return a(b.apply(void 0, arguments));
+        };
+    });
+    console.log(aa(1))
+</script>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <title>Document</title>
+    <style>
+      #container {
+          padding-top: 20px
+
+      }
+    
+    </style>
+</head>
+<body>
+    <div id="container">
+
+    </div>
+</body>
+<script>
+    /*水平柱状图**********************************************************************************/
+    var data = [25,45,36,22,69,85,56,80,60,23],
+        bar_height = 30,
+        bar_padding = 10,
+        svg_height = (bar_height +bar_padding)*data.length,
+        svg_width = 600;
+    // 设置y轴的线性比例尺
+    var y_scale = d3.scaleLinear().domain([0,d3.max(data)]).range([0,svg_width]);
+     
+    //添加svg元素
+    var svg = d3.select("#container").append("svg").attr("width",svg_width)
+                    .attr("height",svg_height);
+
+    //创建柱子
+    var bar = svg.selectAll("g").data(data).enter().append("g").attr("transform",function(d,i){return `translate(0,${(bar_height+bar_padding)*i})`})
+        
+    //添加柱子中的矩形
+    bar.append("rect").attr("width",function(d){return y_scale(d)}).attr("height",bar_height).style("fill","blue")
+    // 添加柱子数字标签
+    bar.append('text').text(function(d){return d}).attr("x",function(d){return y_scale(d)}).attr("y",bar_height/2).attr("text-anchor","end")
+   /*垂直柱状图**********************************************************************************/   
+//    var data = [25,45,36,22,69,85,56,80,60,23],
+//         bar_width = 50,
+//         bar_padding = 10,
+//         svg_width  = (bar_width +bar_padding)*data.length,
+//         svg_height = 600;
+//     // 设置y轴的线性比例尺
+//     var y_scale = d3.scaleLinear().domain([0,d3.max(data)]).range([svg_height,0]);
+     
+//     //添加svg元素
+//     var svg = d3.select("#container").append("svg").attr("width",svg_width)
+//                     .attr("height",svg_height);
+
+//     //创建柱子
+//     var bar = svg.selectAll("g").data(data).enter().append("g").attr("transform",function(d,i){return `translate(${(bar_width+bar_padding)*i},0)`})
+        
+//     //添加柱子中的矩形
+//     bar.append("rect").attr("y",function(d){return y_scale(d)}).attr("height",function(d){return svg_height - y_scale(d)}).attr("width",bar_width).style("fill","blue")
+//     // 添加柱子数字标签
+//     bar.append('text').text(function(d){return d}).attr("y",function(d){return y_scale(d)}).attr("x",bar_width/2).attr("text-anchor","middle").attr("dy",30)
+
+
+
+
+</script>
+</html>

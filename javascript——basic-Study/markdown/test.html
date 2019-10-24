@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+</head>
+<body>
+
+</body>
+<!-- <script>
+        // let reg = /ok/;
+        // console.log(reg.global) //false;
+        // console.log(reg.exec("hello,Are you ok\? ,yes, ok"));//
+        // let reg1 = /ok/g;
+        // console.log(reg1.global);//true
+        // console.log(reg1.exec("hello,Are you ok\? ,yes, ok"));//
+        //
+        // const a = '0123456789'.replace(/\d{4,8}?/, 'm')  // "mm78"
+        // console.log(a);
+        // console.log('0123456789'.replace(/\d{5,}/, 'm')) // "m";
+        // console.log('0123456789'.replace(/\d{5,}?/, 'm'))  // "m56789"
+
+
+        // console.log('0123456789'.replace(/[0-9]*/,'m') )// "m";
+        // console.log('0123456789'.replace(/[0-9]*?/,'m') )// "m0123456789";
+
+        // console.log('0123456789'.replace(/[0-9]{5}/, 'm'))  // "m56789";
+        // console.log('0123456789'.replace(/[0-9]{5}?/, 'm'))  // "m56789"
+
+        // let reg = /(ok) is \1/;
+        // let str = "ok is ok?"
+        // console.log(reg.exec(str)) // ["ok is ok", "ok", index: 0, input: "ok is ok?"]
+
+        // `const str = "you are ok eques i'am ok!you are ok eques i'am ok!you are ok eques i'am ok!";`
+        // let reg = /e ok/g;
+        //
+        // console.log(reg.lastIndex); // 0
+        // console.log(reg.exec(str)); // ["e ok", index: 6, input: "you are ok eques i'am ok!you are ok eques i'am ok!you are ok eques i'am ok!"]
+        // console.log(reg.lastIndex); // 10
+        // console.log(reg.exec(str)); // ["e ok", index: 31, input: "you are ok eques i'am ok!you are ok eques i'am ok!you are ok eques i'am ok!"]
+        // console.log(reg.lastIndex); // 35
+        // console.log(reg.exec(str)); // ["e ok", index: 56, input: "you are ok eques i'am ok!you are ok eques i'am ok!you are ok eques i'am ok!"]
+        // console.log(reg.lastIndex); // 60
+        // console.log(reg.exec(str)); // null
+        // console.log(reg.lastIndex); // 0
+
+        // const str = 'wo men dou shi zhong guo ren';
+        // let reg1 = /ren$/;
+        // // 判断str是不是以ren结尾
+        // console.log(reg1.test(str)); // true
+        // let reg2 = /^ren/;
+        // // 判断str是不是以ren开头
+        // console.log(reg2.test(str)); // fase
+        //
+        // const reg3 = /\w/g;
+        // while(reg3.test(str)){
+        //   console.log(reg3.lastIndex);
+        // }
+        //即进行test时，正则表达式的lastIndex会发生变化 输出：1 2 ... 28 表示第一个匹配上了、第二个匹配上了，直到第28个都匹配上啦，没有第29个，跳出循环
+
+        // const str = "you are ok eques i'am ok!you are ok eques i'am ok!you are ok eques i'am ok!";
+        // const reg = /ok/g;
+        // console.log(str.search(reg));//8
+        //
+
+        // var reg3=/\d(\w)(\w)\d/;    // 非全局搜索只能匹配到第一个结果
+        // var reg4=/\d(\w)(\w)\d/g;   // 全局搜索匹配全文
+        // var ts = '$1az2bb3cy4dd5ee'
+        // var ret1= ts.match(reg3)   // (3) ["1az2", "a", "z", index: 1, input: "$1az2bb3cy4dd5ee", groups: undefined]
+        // console.log(ret1)
+        // console.log(reg3.lastIndex+'\t'+ret1.index)  // 0, 1
+        // var ret2 = ts.match(reg4)  // (2) ["1az2", "3cy4"]
+        // console.log(ret2)
+        // console.log(reg4.lastIndex+'\t'+ret2.index)   // 0 undefined
+
+        // // 例1
+        // const str = '2018-03-31';
+        // let reg = /^(\d{4})\D(\d{2})\D(\d{2})$/;
+        // function replacer (match, p1, p2, p3, offset, string) {
+        //     console.log([match, p1, p2, p3, offset, string]); // ["2018-03-31", "2018", "03", "31", 0, "2018-03-31"]
+        //     return [p1, p2, p3].join('/')
+        // }
+        // console.log(str.replace(reg, replacer)); // 2018/03/31
+        //
+        //
+        // // 例2
+        // const res1 = 'a1b2c3d4e5'.replace(/\d/g, function(match, index, origin){
+        //   return parseInt(match) + 1;
+        // })
+        // console.log(res1) // "a2b3c4d5e6"
+        //
+        // const res2 = 'a1b2c3d4e5'.replace(/(\d)(\w)(\d)/g, function(match, group1, group2, group3, index, origin){
+        //   console.log(match)  // 1b2 // 3d4
+        //   return group1 + group3;
+        // })
+        // console.log(res2);// "a12c34e5"
+        //
+        //
+        // // 例3
+        // const res3 = '99999999999.33333333'.replace(/\d{1,3}(?=(\d{3})+(?:\.\d+)?$)/g, '$&,')
+        // console.log(res3) //99,999,999,999.33,333,333
+        // //例4
+        // var dateStr = '2019/07/20';
+        // var reg = /(\d{4})\/(\d{2})\/(\d{2})/;
+        // dateStr = dateStr.replace(reg, '$1-$2-$3')
+        // console.log(dateStr); // 2019-07-20
+
+
+
+
+
+        // const str = "you are ok eques i'am ok!you are ok eques i'am ok!you are ok eques i'am ok!";
+        // // 例1
+        // let reg2 = /\s+(ok)\s+/;
+        // console.log(str.split(reg2));//["you are", "ok", "eques i'am ok!you are", "ok", "eques i'am ok!you are", "ok", "eques i'am ok!"]
+        //
+        // // 例2
+        // let reg3 = /\s+ok\s+/;
+        // console.log(str.split(reg3));//["you are", "eques i'am ok!you are", "eques i'am ok!you are", "eques i'am ok!"]
+        //
+        // // 例3
+        // 'alb2c3d'.split(/\d/); //["a", "b", "c", "d"]
+
+
+        foo();  // foo2
+        function foo() {
+            console.log('foo1');
+        }
+
+        // foo();  // foo2
+        //
+        // function foo() {
+        //     console.log('foo2');
+        // }
+        //
+        // foo(); // foo2
+
+</script>
+<script>
+    console.log(person);
+     console.log(fun)
+</script>
+
+<script>
+    console.log(person)
+
+    console.log(fun)
+
+    var person = "Eric";
+
+    console.log(person)
+
+    function fun() {
+        console.log(person)
+        var person = "Tom";
+        console.log(person)
+    }
+
+    fun()
+
+    console.log(person)
+</script> -->
+
+<!-- <script>
+    // 执行上下文
+    // 例1 变量声明的提升
+    console.log(a); //undefined
+    var a = 100;
+    // 创建上下文时，先扫描到变量a,给其赋值undifined，执行阶段逐行执行
+    // 相当于如下：
+    var a;
+    console.log(a);
+    a=100;
+
+    // 例2 函数声明的提升；
+    console.log(c); //ƒ c(){ console.log("大白兔");}
+    function c(){
+            console.log("大白兔");
+    };
+    console.log(d); // undifined
+    var d = function(){console.log("小白兔")}
+    // 创建上下文时，函数c被作为变量对象的属性存储，变量对象的值指向了此函数在内存中的地址，即a函数被整体提升啦，
+    // d是作为变量被声明的，因此初始化时给其赋值undifined的
+
+
+    // 例3 函数与变量同名被声明
+    console.log(aa,); // ƒ aa() {console.log("my name is function");}
+    var aa = "my name is varible";
+    console.log(aa); //my name is varible
+    function aa() {
+            console.log("my name is function");
+    }
+    console.log(aa); // my name is varible
+    // 创建上下文时，先扫描函数声明跟变量声明，重名时，函数声明优先级高，覆盖变量声明，
+    //执行阶段，逐行执行，因此第一次输出函数aa ，第二次输出前变量aa被赋值"my name is varible"，因此，输出"my name is varible"；
+    //第三次输出前，没有变化，同第二次，因此还是输出"my name is varible"
+
+
+
+   // 例1 this指向 window
+   var name = 'mark';
+   function bb (){
+           console.log(this.name);
+   }
+   bb();// mark
+   //变量 name为全局变量，定义在全局上下文中，this指向window
+
+   // 例2 this指向构造函数对应的实例
+   function cc(name,age){
+          console.log(this);//cc {}
+          this.name = name;
+          this.age = age;
+          console.log(this) //cc {name: "mm", age: 16}
+  }
+   var ccc = new cc('mm',16);
+   // new 关键字创建对象ccc是，会在构造函数内部隐式的创建 this = {}作为该构造函数的一个实例对象，因此此时的this指向此实例
+
+   // 例3 this 指向某一对象
+   var oo = {
+        name:'mark',
+        logo:function(){
+                console.log(this);//{name: "mark", logo: ƒ}
+                console.log(this.name);//mark
+        }
+ }
+   oo.logo();
+   // 此时logo函数是oo对象的一个属性，logo函数只能被oo对象调用，因此，this只能指向logo函数的调用着oo
+
+   // 例4 call apply 改变this指向
+   function pp (age,gender){
+        console.log(this);//{name: "mark"}
+        console.log(`my name is ${this.name},i am ${age} years old,I am a ${gender}`)
+  }
+   var obj = {name:'mark'}
+   pp.call(obj,10,'boy');//my name is mark,i am 10 years old,I am a boy
+   pp.apply(obj,[20,'girl']);//my name is mark,i am 20 years old,I am a girl
+   // apply ,call bind函数内部都会改变this指向，将this指向当前函数的第一参数
+  // 源码中有  context = context || window; context为函数的第一参数
+
+   // 例5 箭头函数中
+   var oo = {
+        logo:()=>{
+                console.log(this);//global {snapshotAuxiliaryData: {…}, generateSnapshot: null, snapshotResult: {…}, postMessage: ƒ, blur: ƒ, …}
+                console.log(window === this) // true
+        }
+   }
+   oo.logo();
+   // 箭头函数中没有this,因此在箭头函数内部使用this时，this指向它的父级上下文中的this，此处就指向全局上下文window
+   var ooo = {
+        name :'pp',
+        logo:function(age){
+                console.log(this);//{name: "pp", logo: ƒ}
+                this.age = age;
+                return ()=>{
+                        console.log(this);//{name: "pp", age: 16, logo: ƒ}
+                }
+        }
+   }
+   ooo.logo(16)();
+   //箭头函数中没有this,因此在箭头函数内部使用this时，this指向它的父级上下文中的this，其父级上下文为logo函数的上下文,logo函数上下文中的this指向ooo对象
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script> -->
+
+<script type="text/javascript">
+    var name = "mark";
+    function a (){
+        console.log(this.name,"..........a");//mark ..........a
+        function b(name) {
+            console.log(name,"...........b");//mark ...........b
+            function c() {
+                console.log(name,"........c")//mark ........c
+            }
+            return c();
+        }
+        b(this.name);
+        console.log("nnnn")
+    }
+    a();
+    /**
+     * 执行环境栈中执行上下文的变化：
+     *
+     * 这段代码被浏览器加载时，js引擎会先创建一个全局执行上下文，记作Global EC,并将global EC压入执行环境栈的底部（Excution Context Stack，简称ecs）
+     * 当函数a被调用时，创建函数a的函数执行上下文，记作a Ec，并将a EC压入ecs中；
+     * 在a函数执行的过程中，b函数被调用，此时，创建b函数的执行上下文，记作b EC，并将b EC压入ecs中；
+     * 在b函数的执行过程中，c函数被调用，此时，创建c函数的执行上下文，记作c EC，并将c EC压入ecs中；
+     * c函数执行完毕后，执行上下文c EC跳出执行环境栈ecs，等待垃圾回收，
+     * 此时，随之c函数的执行完毕，b函数也随之执行结束，因此，执行上下文b EC被弹出执行环境栈ecs，等待垃圾回收，
+     * 此时，js引擎指向执行环境栈中的a EC,继续执行a函数未被执行的部分，
+     * 待a函数执行完毕后，a EC也被弹出执行环境栈ecs，等待垃圾回收，
+     * 此时，执行环境栈中只有全局上下文 global EC,待浏览器窗口关闭收，global EC被弹出执行环境栈，待定垃圾回收机制回收，
+     * 至此，这段代码就被执行完毕
+     */
+
+    // 分析执行上下文中变量对象的存储
+    var xx = "what is this?";
+    var p = "fish";
+    function aa (pra){
+        var l = 10;
+        for(var i = 0;i<l;i++) {
+            console.log(this.xx);
+            console.log(`these are ${i} ${this.p}`);
+            bb(i);
+        }
+        function bb (i){
+            cosole.log(i)
+        }
+    }
+    aa(p);
+    /**
+     * 创建全局执行上下文，记作 Global EC，并在此上下文中创建变量对象vo，js引擎扫描变量声明和函数声明，
+     * 并添加的变量对象vo中 如 vo = {xx:undifined,p:undifined,aa:function(){}},
+     *
+     * 函数a被调用时，创建函数执行上下文，记作aa EC，并在此上下文中创建变量对象vo，js引擎扫描形参，变量声明，函数声明等，
+     * 并天骄到变量对象vo中，如vo = {pra:'fish',l:undifined,i:undifined,bb:function(){}}
+     */
+
+
+
+</script>
+</html>
+
+console.log(reg.exec(str))

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>角标面板 弧面屏卡牌 动态旋转边框 渐变色边框</title>
+    <style>
+           body{
+                padding: 10rem;background: rgba(0,0,0,.9)
+            }
+            /* .panel{
+                height: 12rem; width: 24rem;
+                border: 1px solid rgba(22,78,137,1);
+                background: rgba(13,35,61,1);
+                position: relative;
+            }
+            .panel::after{
+                content: attr(corner);
+                display: block; 
+                position: absolute; 
+                top: 0; 
+                right: 0; 
+                width:100px; 
+                padding: 0 1px; 
+                overflow: hidden; 
+                text-align: right; 
+                color: rgba(255,255,255,.9);
+                background: linear-gradient(45deg,transparent 0% , transparent 30%,  rgba(122,78,137,1) 30%,  rgba(22,78,137,1) 100%)
+            } */
+
+            /* .box{
+                height: 406px; width: 206px; 
+                background: linear-gradient(180deg,#116448,#116448);
+                overflow: hidden;
+                border: 1px solid rgba(0,0,0,.2);
+                box-shadow: 0 0 1px black
+            }
+            .card{
+                height: 400px; 
+                width: 200px; 
+                margin: 2px; 
+                border: 1px solid rgba(0,0,0,.2);
+                box-shadow: 0 0 15px black inset;
+                background: #009966;
+            } */
+
+
+
+
+            .box1{
+                position: relative; 
+                width: 220px; 
+                height: 220px;
+                display: flex;
+                justify-content: center; 
+                align-items: center
+            }
+            .ring-inner{
+                height: 220px; 
+                width: 220px; 
+                position: absolute;
+                background: url(http://www.imaoda.com/s/img/tpl/ring-inner.png) no-repeat;
+                background-size: 90%;
+                background-position: center;
+                animation: clockwise 3s linear infinite;
+            }
+            .ring-outer{
+                height: 220px; 
+                width: 220px; 
+                position: absolute;
+                background: url(http://www.imaoda.com/s/img/tpl/ring-outer.png) no-repeat;
+                background-size: 100%;
+                background-position: center;
+                animation: anti-clockwise 3s linear infinite;
+            }
+            .avatar{
+                height: 160px;
+                width: 160px;
+                background: url(http://www.imaoda.com/s/img/lessons/92.jpg);
+                background-size: cover;
+                border-radius: 50%
+            }
+            @keyframes clockwise{
+                100%{
+                    transform: rotate(360deg)
+                }
+            }
+            @keyframes anti-clockwise{
+                0%{
+                    transform: rotate(360deg)
+                }
+            }
+
+            /* .border{
+                width: 300px; height: 600px;
+                 border-radius: 20px;
+                background: linear-gradient(45deg,red,blue);
+                overflow: hidden
+            }
+            .content{
+                width: 260px; height: 560px;
+                background: white;
+                margin: 20px;
+            } */
+
+
+
+</style>
+</head>
+<body>
+        
+        <!-- <div class='panel' corner='按钮'></div> -->
+
+        <!-- <div class='box'>
+                <div class='card'></div>
+        </div> -->
+
+        <div class='box1'>
+                <div class='ring-outer'></div>
+                <div class='ring-inner'></div>
+                <div class='avatar'></div>
+        </div>
+
+        <!-- <div class='border'>
+                <div class='content'></div>
+            </div> -->
+    
+</body>
+</html>

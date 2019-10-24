@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <title>Document</title>
+    <style>
+           
+       
+           
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+    
+</body>
+    <script>
+        //  svg画布的宽高
+        var width = 600,
+            height = 400,
+            margin = {left:15,top:20,right:15,bottom:15}
+            data = {
+            "name": "老祖宗",
+            "children": [
+            {
+            "name": "analytics",
+            "children": [
+                {
+                "name": "cluster",
+                "children": [
+                {"name": "AgglomerativeCluster", "value": 3938},
+                {"name": "CommunityStructure", "value": 3812},
+                
+                ]
+                },
+                {
+                "name": "graph",
+                "children": [
+                {"name": "ShortestPaths", "value": 5914},
+                {"name": "SpanningTree", "value": 3416}
+                ]
+                },
+                {
+                "name": "optimization",
+                "children": [
+                {"name": "AspectRatioBanker", "value": 7074}
+                ]
+                }
+            ]
+            },
+            {
+            "name": "animate",
+            "children": [
+                {"name": "Easing", "value": 17010},
+                {"name": "TransitionEvent", "value": 1116},
+                {"name": "Tween", "value": 6006}
+            ]
+            },
+            {
+            "name": "data",
+            "children": [
+                {
+                "name": "converters",
+                "children": [
+                {"name": "Converters", "value": 721},
+                {"name": "JSONConverter", "value": 2220}
+                ]
+                },
+                {"name": "DataField", "value": 1759},
+            
+            ]
+            },
+            
+            ]
+            };
+        
+        var chart_width = width - margin.left - margin.right;
+        var chart_height = height - margin.top - margin.bottom;    
+
+       
+       
+       
+       // d3.hierarchy() 根据指定的层次结构数据构造一个根节点
+       var tree = (data)=>{
+        const root1 = d3.hierarchy(data);
+        //console.log(root,"......hierarchy..........");
+        root1.dx = 30;
+        root1.dy = width / (root1.height + 1);
+        // 创建一个数布局，并设置系统树布局的节点尺寸为指定的数值二元数组，然后对指定的 root hierarchy 进行布局，并为 root 以及它的每一个后代附加两个属性node.x和node.y
+        
+        return d3.tree().nodeSize([root1.dx, root1.dy])(root1);
+       }
+
+
+        const root = tree(data);
+        console.log(root,"...............root,...........")
+
+        let x0 = Infinity; // 最小值
+        let x1 = -x0; // 最大值
+        //node.each(function) 以 breadth-first order(广度优先) 的次序为每个 node 调用执行的 function, 一个给定的节点只有在比其深度更小或者在此节点之前的相同深度的节点都被访问过之后才会被访问。指定的函数会将当前 node 作为参数。
+        root.each(d => {
+            if (d.x > x1) x1 = d.x;
+            if (d.x < x0) x0 = d.x;
+            console.log(x0,"...x0............",d)
+        });
+        
+        // 创建svg画布
+         const svg = d3.select("#container").append("svg")
+            // .attr("viewBox", [0, 0, width, x1 - x0 + root.dx * 2])
+            .attr("width",width).attr("height",height);
+        // 创建图表显示区域
+        const g = svg.append("g")
+            .attr("font-family", "sans-serif")
+            .attr("font-size", 14)
+            .attr("transform", `translate(${root.dy / 3},${root.dx - x0})`)
+            .attr("width",chart_width).attr("height",chart_height)
+            //.attr("transform",`translate(${margin.left},${margin.top})`);
+            
+
+     
+        const link = g.append("g")
+        .attr("fill", "none")
+        .attr("stroke", "#000")
+        .attr("stroke-opacity", 0.9)
+        .attr("stroke-width", 1.5)
+        .selectAll("path")
+        .data(root.links()) //当前 node 的 links 数组, 其中每个 link 是一个定义了 source 和 target 属性的对象
+        .join("path")
+            .attr("d", d3.linkHorizontal()
+                .x(d => d.y)
+                .y(d => d.x));
+        // console.log(root.links(),"......root.links()...........")
+        // console.log(root.descendants(),"......root.descendants()...........")
+       
+       
+        const node = g.append("g")
+            .attr("stroke-linejoin", "round")
+            .attr("stroke-width", 3)
+        .selectAll("g")
+        .data(root.descendants()) //返回后代节点数组，第一个节点为自身，然后依次为所有子节点的拓扑排序
+        .join("g")
+            .attr("transform", d => `translate(${d.y},${d.x})`);
+
+        node.append("circle")
+            .attr("fill", d => d.children ? "red" : "#999")
+            .attr("r", 6);
+
+        node.append("text")
+            .attr("dy", "0.31em")
+            .attr("x", d => d.children ? -6 : 6)
+            .attr("text-anchor", d => d.children ? "end" : "start")
+            .text(d => d.data.name)
+        // .clone(true).lower()
+        //     .attr("stroke", "white");
+
+
+
+
+
+
+    </script>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图片边框   科技感内发光边框 科技感图片边框 科技感图片边框2 半透明面板 立体感面板-带标题栏</title>
+    <style>
+           body{
+                background: #003366;
+            }
+            
+           
+            .box{
+                height: 200px;
+                width: 400px; 
+                color:white; 
+                padding: 1rem;
+                box-shadow: 0 0 3rem rgba(100,200,255,.5) inset;
+                background: rgba(0,0,0,.3); 
+                border: 1px solid rgba(100,200,255,.5)
+            }
+      
+
+
+            .pic,.pic1{
+                height: 10rem; 
+                width: 20rem; 
+                color:rgba(255,255,255,.9);
+                border: 20px solid transparent;
+                border-image: url(http://www.imaoda.com/s/img/tpl/border.png) 5%;
+                background:rgba(0,0,0,.3);
+                margin-left: 50px;
+                float: left;
+            }
+            .pic1{
+                box-shadow:  0 0 5rem rgb(0,110,150)
+            }
+
+
+            body{
+                background: rgb(22,22,22); padding:10rem
+            }
+            .box1{
+                height: 10rem; width: 30rem;
+                border: 1.5rem solid transparent;
+                border-image: url(http://www.imaoda.com/s/img/tpl/border1.png) 15% 5%;
+            }
+
+
+         
+            .panel_1{
+                height: 12rem; 
+                width: 24rem; 
+                color:rgba(60,240,250,1); 
+                font-size: 1.5rem; 
+                padding:1rem;
+                border-radius: .5rem;
+                border: 1px solid rgba(0,180,220,0.5);
+                background: linear-gradient(180deg,rgba(0,180,220,0.3),rgba(0,180,220,0.1),rgba(0,180,220,0.1),rgba(0,180,220,0.3));
+                box-shadow: 0 0 2rem rgba(0,180,220,.1) inset
+            }
+            
+
+
+            .panel_2{
+                display: flex; 
+                flex-flow: column nowrap;
+                height: 23rem; 
+                width: 40rem;
+                box-shadow: 0 0 1rem rgba(0,0,0,.5);
+            }
+            .panel-head{
+                flex: 0 0 3rem; font-size: 1.5rem; color: rgba(255,255,255,.7); line-height: 3rem; text-align: center;
+                background: linear-gradient(rgb(0,20,30), rgb(0,40,70));
+                border: 2px solid rgba(0,90,120,.3);
+                
+            }
+            .panel-body{
+                flex: 1 0 auto;
+                background: rgba(0,0,0,.3);
+                border: 2px solid rgba(0,90,120,.4);
+                border-top:none
+            }
+            .panel_2:hover{
+                filter:brightness(1.2)
+            }
+
+
+    </style>
+</head>
+<body>
+        
+    
+        <div class='box'>
+            <div class='card'>
+                    数据总览
+            </div>  
+        </div>
+
+        <!-- <div class='pic'>正常</div>
+
+        <div class='pic1'>外发光</div> -->
+
+        <!-- <div class='box1'>
+                发发发
+        </div> -->
+
+        <!-- <div class='panel_1'>监控数据</div> -->
+
+
+        <!-- <div class='panel_2'>
+                <div class='panel-head'>标题行</div>
+                <div class='panel-body'></div>
+        </div> -->
+    
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>高斯模糊背景图</title>
+    <style>
+           .box{
+                position: relative
+            }
+            .background{
+                background: url(https://raw.githubusercontent.com/liuguoxionglang/react-redux/master/p.jpg);
+                background-size: 200%;
+                height: 200px; 
+                width: 400px;
+                filter: blur(16px)
+            }
+            .content{
+                position: absolute;
+                height: 200px; 
+                width: 400px; 
+                top: 0px; 
+                left: 0px; 
+                background: rgba(0,0,0,.5);
+                color: white; 
+                text-align: center
+            }
+
+    </style>
+</head>
+<body>
+        
+        <div class='box' >
+            <div class='background'></div>
+            <div class='content'>
+                夏洛特烦恼
+            </div>
+        </div>
+    
+</body>
+</html>

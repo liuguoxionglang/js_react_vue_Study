@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>毛玻璃蒙版</title>
+    <style>
+           body{
+                background: rgb(14,28,44)
+            }
+            .box{
+                position: relative; height: 400px; width: 400px; 
+                display: flex; justify-content: center; align-items: center;
+            }
+            .light{
+                width: 200px; height: 200px;	
+                filter: drop-shadow(0 0 5px yellow);
+                animation: rotate linear 3s infinite;
+            }
+            .btn{
+                position: absolute; 
+                top: 50%; left: 50%; transform: translate(-50%,-50%); padding:3rem;
+                background:green; color: white; border-radius: 50%;
+            }
+            @keyframes rotate{
+                100%{
+                    transform: rotate(360deg)
+                }
+            }
+            
+
+
+
+            li{
+                display: inline-block; 
+                height: 200px; 
+                width: 150px;
+                background: url(https://raw.githubusercontent.com/liuguoxionglang/react-redux/master/p.jpg);
+                background-size: 100%;
+                box-shadow: 0 2px 2px #222222;
+                border: 2px solid transparent;
+                border-radius: 5px;
+                filter: brightness(.7);
+                cursor: pointer;
+                transition: all .2s
+            }
+            li:hover{
+                box-shadow: 0 0 30px yellow;
+                border: 2px solid yellow;
+                transform: translate(0,-10%);
+                filter: brightness(1);
+            }
+
+
+
+
+            </style>
+</head>
+<body>
+        
+        <div class='box'>
+            <img class='light' src="http://www.imaoda.com/s/img/tpl/light.png" alt="">
+            <div class='btn'>开始</div>
+        </div>
+
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+
+
+        <!-- <p>原图</p>
+        <img src="http://www.imaoda.com/s/img/github/21.jpg" />
+        <p>黑白色filter: grayscale(100%)</p>
+        <img src="http://www.imaoda.com/s/img/github/21.jpg" style="filter: grayscale(100%);"/>
+        <p>褐色filter:sepia(1)</p>
+        <img src="http://www.imaoda.com/s/img/github/21.jpg" style="filter:sepia(1);"/>
+        <p>饱和度saturate(2)</p>
+        <img src="http://www.imaoda.com/s/img/github/21.jpg" style="filter:saturate(2);"/>
+        <p>色相旋转hue-rotate(90deg)</p>
+        <img src="http://www.imaoda.com/s/img/github/21.jpg" style="filter:hue-rotate(90deg);"/>
+        <p>反色filter:invert(1)</p>
+        <img src="http://www.imaoda.com/s/img/github/21.jpg" style="filter:invert(1);"/>
+        <p>透明度opacity(.5)</p>
+        <img src="http://www.imaoda.com/s/img/github/21.jpg" style="filter:opacity(.5);"/>
+        <p>亮度brightness(.5)</p>
+        <img src="http://www.imaoda.com/s/img/github/21.jpg" style="filter:brightness(.5);"/>
+        <p>对比度contrast(2)</p>
+        <img src="http://www.imaoda.com/s/img/github/21.jpg" style="filter:contrast(2);"/>
+        <p>模糊blur(3px)</p>
+        <img src="http://www.imaoda.com/s/img/github/21.jpg" style="filter:blur(3px);"/>
+        <p>阴影drop-shadow(5px 5px 5px #000)</p>
+        <img src="http://www.imaoda.com/s/img/github/21.jpg" style="filter:drop-shadow(5px 5px 5px #000);"/> -->
+
+
+        <!-- RGBA 颜色
+            可以在常规 RGB 颜色后面，增加透明度 0 为全完透明，1 为完全不透明。可用在：
+
+            color
+            background
+            gradient
+            box-shadow
+            text-shadow -->
+
+            <!-- 渐变
+                线性渐变：角度，颜色1，颜色2，...，颜色n。可后面追加%，如果省略，则均分
+
+                linear-gradient(45deg,rgba(0,0,255,.1) 0%,rgba(0,255,0,.1) 90%,rgba(255,0,0,.6) 100%)
+            辐射渐变：颜色1，颜色2，...，颜色n。可后面追加%，如果省略，则均分 
+                linear-gradient(rgba(0,0,255,.1) 0%,rgba(0,255,0,.1) 90%,rgba(255,0,0,.6) 100%)
+    -->
+
+
+    <!-- filter 滤镜
+        filter 会对当前元素的全部内容（含子元素，含图文边框等）进行滤镜。如果想只对图片滤镜，那么需要使用 position 将文字元素定位到其上方。
+        filter: blur(.1rem) grayscale(.5); -->
+
+        <!-- 常用滤镜包括：
+            blur：失焦感的高斯模糊，默认0rem
+            opacity：透明度，默认1，全透明0
+            brightness：亮度，默认1，全黑0，曝光过度2+
+            saturate：饱和度，默认1，灰色0，艳丽2+
+            contrast：对比度，默认1，全灰0，黑白分明2+
+            grayscale：叠加灰度，默认0，灰色1
+            sepia：叠加褐色，默认0，褐色1
+            invert：反色，默认0，全灰0.5，反色1
+            drop-shadow：透明区域无阴影的 box-shadow -->
+
+        <!-- border-image 图片边框
+            以前要实现 border-image 的效果，需要用一个稍微大一圈的图片打底
+            border: 30px solid transparent;
+            border-image: url(b.png) 10%; 
+        background-attachment 固定背景
+            如果是fixed，背景不跟随scroll滚动
+        background-blend-mode
+            multiply 正片叠底 -->
+        
+        <!-- 物质阴影/发光
+            box-shadow 可设置 右侧阴影、下方阴影、高斯模糊、颜色。其中阴影是实色，层次感稍强，一般添加模糊即可。模糊会向四个方向进行扩散，与 
+            发光和阴影本质一样，只不过颜色用浅色系(white/yellow等)，所处环境为深色，加上 border-radius 效果更自然
+            内阴影，能够凸显出凹陷的感觉，只需在 box-shadow 的最后加上 inset 关键词字  
+            .box{
+                height: 400px; width: 400px; background: black; margin: 2rem; padding: 2rem; color: lightgreen; font-size: 28px;
+                box-shadow: 0 0 1rem gray;
+                }
+        -->
+
+        <!-- 字体发光/黑框
+            text-shadow，只需模糊即可，白光可让字体发光，黑光可让白色字体能适应图片背景
+
+        .box{
+            height: 400px; width: 400px; background: black; margin: 2rem; padding: 2rem; color: lightgreen; font-size: 28px;
+            text-shadow: 0 0 .5rem yellow
+        } -->
+               
+
+</body>
+</html>

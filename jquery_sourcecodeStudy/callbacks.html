@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+  function a(n) {
+    alert('a'+n)
+  }
+  function b(n) {
+    alert('b'+n)
+  }
+  var cb = $.Callbacks();
+  cb.add(a);
+  cb.add(b);
+  //cb.add(b,a);
+    //cb.add([b,a]);
+  //cb.fire(333);
+
+
+  function c() {
+    alert('c')
+  }
+  (fucntion() {
+    function d() {
+      alert('d')
+    }
+  })()
+  c() //c
+  d() //报错，找不到此函数
+
+
+ var cb1 = $.Callbacks();
+  function c() {
+    alert('c')
+  };
+  cb1.add(c)
+  (fucntion() {
+    function d () {
+      alert('d');
+    };
+    cb1.add(d);
+  })()
+  cb1.fire()
+
+  var cb1 = $.Callbacks("once"); //cb1.fire()只执行一次
+  var cb2 = $.Callbacks("memory"); //cb1.fire()前后添加的函数都被执行
+  var cb3 = $.Callbacks("unique"); //被添加的函数必须具有唯一性
+  var cb4 = $.Callbacks("stopOnFalse"); //停止在某个返回false的函数，即次函数之后添加的不再继续执行
+  var cb5 = $.Callbacks("once stopOnFalse");//可以任何几个组合执行
+
+  var cbcb = $.Callbacks();
+  var flag = true;
+  function t(n) {
+    alert('a'+n);
+    cbcb.fire();
+  }
+  function tt(n) {
+    alert('b'+n)
+  }
+  cbcb.add(t);
+  cbcb.add(tt);
+  cbcb.fire();
+
+
+
+
+</script>
+</html>

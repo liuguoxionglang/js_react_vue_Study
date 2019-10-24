@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <title>d3数字动效</title>
+   <style>
+        #container {
+            width:200px;
+            height:200px;
+            border:1px solid red;
+        }
+        svg {
+            overflow:visible;
+            margin:50px;
+            font: 2em Open Sans, Impact;
+        }
+       
+   </style>
+</head>
+<body>
+    <div id="container">
+
+    </div>
+</body>
+<script>
+    var svg = d3.select("#container").append("svg")
+                .attr("width",150) 
+                .attr("height",150)
+                .attr("transform","translate(30,30)")
+               
+    // 定义 动画 的持续时间为 1.5S
+    const t = d3.transition().duration(5000);
+
+    //SVG 画布上添加文字，并加入动画
+    svg.append('text')
+        .transition(t)
+        .text(9999) // 设定数字的最终值
+        .attr("fill","red")
+        .tween('d', function() {
+
+            // [注1]：获得数字的终止值
+            const val = d3.select(this).text();
+
+            // [注2]：定义插值函数
+            const i = d3.interpolateNumber(0, val);
+
+            // [注3]："动画函数"
+            return t => {
+
+                // [注4]：通过 插值函数 与 tween() 结合，绘制动画
+                 d3.select(this).text((i(t) | 0));
+
+                // console.log(t, i(t));
+            }
+        });
+</script>
+</html>

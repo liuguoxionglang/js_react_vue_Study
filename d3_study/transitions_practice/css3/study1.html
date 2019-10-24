@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>蒙版文字</title>
+    <style>
+       .box{
+            position: relative;
+            height: 200px; width: 300px
+        }
+        .background{
+            background-image: url(https://raw.githubusercontent.com/liuguoxionglang/react-redux/master/p.jpg);
+            background-size: cover;
+            height: 100%;
+            width: 100%;
+        }
+        .modal{
+            position:absolute;
+            height: 20%; 
+            width: 100%;
+            bottom: 0;
+            color: white;
+            background: rgba(0,0,0,.5)
+        }
+        </style>
+</head>
+<body>
+        
+        <div class='box' >
+                <div class='background'></div> <!--底层正文-->
+                <div class='modal'>简单介绍</div> <!--模顶层模板-->
+        </div>
+    
+</body>
+</html>

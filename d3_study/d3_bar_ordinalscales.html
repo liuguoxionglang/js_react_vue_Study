@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <title>Document</title>
+    <style>
+      #container {
+          padding-top: 20px
+
+      }
+      .chart {
+          stroke: blueviolet;
+          stroke-width: 1
+      }
+    
+    </style>
+</head>
+<body>
+    <div id="container">
+
+    </div>
+</body>
+<script>
+
+   /*ordinalScale**********************************************************************************/   
+        
+        var data = [
+            {
+                x:"a",
+                val:25,
+            },
+            {
+                x:"b",
+                val:45,
+            },
+            {
+                x:"c",
+                val:36,
+            },
+            {
+                x:"d",
+                val:22,
+            },
+            {
+                x:"e",
+                val:69,
+            },
+            {
+                x:"f",
+                val:85,
+            },
+            {
+                x:"z",
+                val:56,
+            },
+            {
+                x:"t",
+                val:80,
+            },
+            {
+                x:"y",
+                val:60,
+            },
+            {
+                x:"u",
+                val:23
+            },
+           
+        ]
+        chart_width =1000,
+        chart_height = 600,
+        chart_margin = {top:30,left:30,right:30,bottom:30},
+        svg_width  = chart_width+chart_margin.left +chart_margin.right,
+        svg_height = chart_height+chart_margin.top+chart_margin.bottom;
+    // 设置y轴的线性比例尺
+    var y_scale = d3.scaleLinear().domain([0,d3.max(data.map(item=>item.val))]).range([chart_height,0]);
+
+    // 设置x轴的oridal比例尺
+    var x_scale = d3.scaleBand().domain(data.map(item=>item.x)).range([0,chart_width]);
+        x_scale.paddingInner(0.1);
+        x_scale.paddingOuter(0.2);
+     console.log(x_scale);
+     console.log(x_scale.range());
+     console.log(x_scale.bandwidth())
+     console.log(x_scale("f"))
+    //添加svg元素
+    var svg = d3.select("#container").append("svg").attr("width",svg_width)
+                    .attr("height",svg_height);
+    // 添加chart
+    var chart = svg.append("g")
+        .attr("transform",`translate(${chart_margin.left},${chart_margin.top})`)
+        .attr("class","chart")
+        .attr("width",chart_width).attr("height",chart_height);
+    
+    // 添加坐标轴
+    var x_axisline = d3.axisBottom(x_scale);
+    var  y_axisline = d3.axisLeft(y_scale)
+    
+    chart.append("g").call(x_axisline).attr("transform",`translate(0,${chart_height})`);
+    chart.append("g").call(y_axisline)
+
+
+    //创建柱子
+    var bar = chart.selectAll(".bar")
+    .data(data)
+    .enter()
+    .append("g")
+    .attr("class","bar")
+    .attr("transform",function(d,i){return `translate(${x_scale(d.x)},0)`})
+        
+    //添加柱子中的矩形
+    bar.append("rect")
+        .attr("y",function(d){return y_scale(d.val)})
+        .attr("height",function(d){return chart_height - y_scale(d.val)})
+        .attr("width",x_scale.bandwidth())
+        .style("fill","blue")
+    // 添加柱子数字标签
+    bar.append('text')
+        .text(function(d){return d.val})
+        .attr("y",function(d){return y_scale(d.val)})
+        .attr("x",x_scale.bandwidth()/2)
+        .attr("text-anchor","middle")
+        .attr("dy",30)
+
+
+
+
+</script>
+</html>

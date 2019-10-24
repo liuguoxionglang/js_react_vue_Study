@@ -1,0 +1,308 @@
+<!--
+@author Jannchie
+@email jannchie@gmail.com
+@create date 2018-07-18 08:42:38
+@modify date 2019-03-20 15:17:15
+@desc A data visualization project based on d3.js. 
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <title>动态排名数据可视化 </title>
+    <!-- <link rel="stylesheet" href="stylesheet.css">
+     -->
+     
+</head>
+
+<body>
+    <div id="container">
+
+    </div>
+   
+</body>
+<script>
+    console.log(d3,"..................d3");
+    // 定义变量并赋值
+    var svg_width = 800,
+        svg_height = 600,
+        data = [
+        {
+            date: 1900,
+            name: "Russian",
+            value: 800,
+            color:'red'
+        },
+        {
+            date: 1900,
+            name: "China",
+            value:820,
+            color:'green'
+        },
+        {
+            date: 1900,
+            name: "Japan",
+            value: 790,
+            color:'blue'
+        },
+        {
+            date: 1900,
+            name: "American",
+            value: 810,
+            color:'pink'
+        },
+    ],
+        chart_margin = {left:60,top:30,right:30,bottom:30},
+        chart_width = svg_width - chart_margin.left - chart_margin.right,
+        chart_height = svg_height - chart_margin.top - chart_margin.bottom;
+
+    // 数据排序
+    data.sort((a, b) => Number(b.value) - Number(a.value))
+    var lastSortData = data;
+    
+    //创建svg画布
+    var svg = d3.select("#container")
+                .append("svg")
+                .attr("width",svg_width) 
+                .attr("height",svg_height);
+    
+    
+    // 创建chart 容器
+    var chart = svg.append("g")
+                   .attr("transform",`translate(${chart_margin.left},${chart_margin.top})`)
+                   .attr("width",chart_width )
+                   .attr("height",chart_height);
+   
+    // 定义x轴缩放比例尺
+    var scale_x = d3.scaleLinear()
+                    .domain([0,d3.max(data.map(item=>item.value))])
+                    .range([0,chart_width]);
+    console.log(scale_x(900),"...........scale_x...........");
+    // 定义y轴缩放比例尺 
+    var scale_y = d3.scaleBand()
+                    .domain(data.map(item=>item.name).reverse())
+                    .range([chart_height,0])
+                    .paddingInner(0.1)
+                    .paddingOuter(0.3);
+    console.log(scale_y("China"),"...........scale_y...........");               
+    // 创建x轴
+    var axis_x = d3.axisTop();
+     axis_x.scale(scale_x);
+     chart.append("g").attr("class","axis_x").call(axis_x);
+ 
+    // 创建y轴
+    var axis_y = d3.axisLeft();
+    axis_y.scale(scale_y);
+    // chart.append("g").attr("class","axis_y").call(axis_y);
+
+    // 创建 bar元素
+    var bar = chart.selectAll(".bar")
+                    .data(data,function(d){ return d.name})
+                    .enter()
+                    .append("g")
+                    .attr("class","bar")
+                    .attr("transform",function(d,i){return `translate(0,${scale_y(d.name)})` })
+    
+    // 添加柱子矩形
+    bar.append("rect")
+        .attr("height",scale_y.bandwidth())
+        .attr("fill-opacity", 1)
+        .attr("width", function (d) {return scale_x(data[data.length - 1].value);})
+        .style("fill",function(d){ return d.color})
+        .transition()
+        .duration(1500)
+        .ease(d3.easeLinear)
+        .attr("width",function(d){return scale_x(d.value)})
+        .attr("fill-opacity", 1)
+     
+      // 添加柱子数字标签
+    bar.append('text')
+    .text(d => d3.format(',.0f')(d.value))
+    .attr("x",function(d){return scale_x(d.value)})
+    .attr("y",scale_y.bandwidth()/2)
+    .attr("text-anchor","middle")
+    .attr("class","label")
+    .attr("dx",-30)
+
+     // 添加y轴 种类名称
+     bar.append('text')
+        .text(function(d){return d.name})
+        .attr("x",'-30')
+        .attr("y",scale_y.bandwidth()/2)
+        .attr("text-anchor","middle")
+        .attr("class","catogroy_y")
+
+    let i = 1;    
+    const inter = setInterval(function(){
+        
+        if(i>22) {
+            clearInterval(inter);
+            return;
+        }
+        i++;
+        data = data.map(item=>{
+                    item.date = item.date + 1;
+                    //console.log(parseInt(Math.random()*100),"ddddddddddddddd");
+                    item.value = item.value + parseInt(Math.random()*100);
+                    return item;
+                });
+        if(1 === parseInt(Math.random()*5)){
+            //alert("111")
+            data.splice(parseInt(Math.random()*data.length),1);
+            data.push({
+                id:parseInt(Math.random()*data.length+10),
+                date: 1900,
+                name: `Japan${parseInt(Math.random()*255)}`,
+                value: parseInt(Math.random()*1000)+parseInt(Math.random()*600),
+                color:`rgba(${parseInt(Math.random()*255)},${parseInt(Math.random()*255)},${parseInt(Math.random()*255)})`
+            })
+        }        
+        data = data.sort((a, b) => b.value - a.value);
+
+       d3.transition("m")
+            .each(redraw)
+       
+    },5000)
+    
+    function redraw(){
+        console.log(data.map(item=>item.date),".....................data..........");  
+        // x轴比例尺作用域与值域重置        
+        scale_x
+        .domain([0,d3.max(data.map(item=>item.value))])
+        .range([0,chart_width]);
+
+        //x轴应用缩放比例尺
+        axis_x.scale(scale_x);
+        chart.selectAll(".axis_x").call(axis_x);
+
+        // y 轴比例尺作用域与值域重置
+        scale_y.domain(data.map(item=>item.name).reverse())
+                .range([chart_height,0]);
+        
+        
+
+
+    
+        // // y轴应用缩放比例尺            
+        // axis_y.scale(scale_y);
+        // chart.selectAll(".axis_y").call(axis_y);
+        console.log(data.map(item=>item.value),".....................new data..........",data.map(item=>item.name).reverse());        
+        
+        // 柱状图重新绑定新数据        
+        bar = chart.selectAll('.bar').data(data,function(d){return d.name})
+
+        // 无元素 有数据的的添加一个元素        
+        var insert = bar.enter()
+                .append("g")
+                .attr("class", "bar")
+                .attr("transform", function (d,i) {
+                    console.log(d,"MMMMMMMMMMMMMMM......................")
+                    return "translate(0," + svg_height + ")";
+                });
+
+                insert
+                .transition()
+                .duration(1000)
+                .ease(d3.easeLinear)
+                .attr("transform", function (d,i) {
+                    console.log(d,"MMMMMMMMMMMMMMM......................")
+                    return "translate(0," + scale_y(d.name) + ")";
+                })
+
+
+
+         // 添加柱子矩形
+         insert.append("rect")
+            .attr("height",scale_y.bandwidth())
+            .attr("fill-opacity", 1)
+            .attr("width", function (d) {return scale_x(data[data.length - 1].value);})
+            .style("fill",function(d){ return d.color})
+            .transition()
+            .duration(1500)
+            .ease(d3.easeLinear)
+            .attr("width",function(d){return scale_x(d.value)})
+            .attr("fill-opacity", 1)
+        // 添加柱子数字标签
+        insert.append('text')
+        .text(function(d){return d.value})
+        .attr("x",function(d){return scale_x(d.value)})
+        .attr("y",scale_y.bandwidth()/2)
+        .attr("text-anchor","middle")
+        .attr("class","label")
+        .attr("dx",-30)
+
+        // 添加y轴 种类名称
+        insert.append('text')
+            .text(function(d){return d.name})
+            .attr("x",'-30')
+            .attr("y",scale_y.bandwidth()/2)
+            .attr("text-anchor","middle")
+            .attr("class","catogroy_y")    
+
+
+        // 有元素 无数据的删除    
+        bar.exit()
+            .transition()
+            .duration(1000)
+            .ease(d3.easeLinear)
+            .remove();
+            
+        
+        //柱状图定义过渡
+        var barUpdate = bar
+                        .transition("2")
+                        .duration(2990 * 1)
+                        .ease(d3.easeLinear);   
+        // rect元素应用过渡       
+        barUpdate
+            .select("rect")
+            .style("fill",(d,i) => d.color)
+            .attr("width", d => {
+                console.log(`${d.date}------${d.name}------${d.value}`);
+                return scale_x(d.value)
+            });
+
+
+        
+
+        // 重置柱状图标签    
+        //bar.select(".label").text(d => d3.format(',.0f')(d.value))
+        bar.select(".label")
+            .transition()
+            .duration(1000)
+            .ease(d3.easeLinear)
+            .tween("text", function(d) {
+               let i = d3.interpolateRound(0, d.value);
+               return function(t) {
+                 this.textContent = d3.format(',')(i(t));
+              };
+            });
+    
+        // y轴类目标签
+        bar.select(".catogroy_y").text(function(d){return d.name}) ;
+
+
+        // 柱子上下移动   
+        chart.selectAll(".bar").data(data,function(d){return d.name})
+            .transition()
+            .duration(1000)
+            .attr("transform", function (d) {
+                console.log(d.date,"....................date")
+                console.log(this.getAttribute("transform"),"..................transform",d.name,scale_y(d.name));
+                return `translate(0,${scale_y(d.name)})`
+            }); 
+
+
+       
+    }
+    
+    
+        
+            
+</script>
+
+</html>

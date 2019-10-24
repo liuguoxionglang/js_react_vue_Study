@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <!-- <div id ='div1' style="width:100px;height:50px;display:none;"></div> -->
+  <div id ='div1' style="width:100px;height:50px;display: block;visibility:hidden;positiona:absolute"></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <input type="button" value="绑定"/>
+  <input type="button" value="取消绑定"/>
+
+</body>
+<script src="https://cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+<script type="text/javascript">
+//扩展工具方法
+// jQuery.extend({
+//   expando:生成唯一jq字符串（内部使用）,
+//   noConflict()：防止冲突,
+//   isReady:dom是否加载完（内部）,
+//   readyWait:等待多少文件的计数器（内部）,
+//   holdReady():推迟dom触发,
+//   ready():准备dom触发,
+//   isFunction():是否为函数,
+//   isArray():是否为数组,
+//   isWindow():是否为window,
+//   isNumeric():是否为数字,
+//   type():判断数据类型,
+//   isPlainObject():是否为对象自变量,
+//   isEmptyObject():是否为空的对象,
+//   error():抛出异常,
+//   parseHTML():解析节点,
+//   parseJSON():解析json,
+//   parseXML():解析xml,
+//   noop():空函数,
+//   globalEval():全局解析js,
+//   camelCase():转驼峰,
+//   nodeName():是否为指定节点名,
+//   each():遍历集合,
+//   trim():去掉前后空格,
+//   makeArray():转数组,
+//   inArray():数组版的indexof(),
+//   merge():合并数组,
+//   grep():过滤新数组,
+//   map():映射新数组,
+//   guid:唯一标识符（内部）,
+//   proxy():改变this指向,
+//   access():多功能值操作, $.css(),$.attr() 根据参数方法不同
+//   now:当前时间,
+//   swap(): css交换（内部）,
+//
+// })
+
+</script>
+<script>
+  //两者的区别
+  //运用DOMContentLoaded事件
+  //dom加载完后再执行
+//   $(function() {});
+//
+//   //页面中的所有东西都加载完后再执行
+//   window.onload = function() {}
+//
+//
+//   //推迟执行
+//   //$.holdReady(true)
+//   //取消推迟
+//   //  $.holdReady(false);
+//
+//
+//   //$.holdReady(true)
+//
+//   //$.getScript('a.js',function() {$.holdReady(false);})
+//
+//   //$(function() {  alert(2)})
+//
+//   var a = isFinite(Number.MAX_VALUE)
+//   //alert(a)
+//
+//   const bb = ({}.toString.call([]) === '[object Array]');
+//   <!-- alert(bb) -->
+//
+//  // 对象自变量
+//   var oo = {}
+//   var o = new Object();
+//   $.isPlainObject(oo);
+//
+//  function AA(){}
+//  var aaa = []
+//   $.isEmptyObject(new AA()) //true
+//
+//   var dom = '<li></li><li></li>';
+//   const p = $.parseHTML(dom)
+// //全局解析js
+//   function test() {
+//     jQuery.globalEval( "var newVar = true;" );
+//     //直接写就是js中的关键字
+//     eval('var nb = 333');
+//     //window下面的一个全局变量
+//     var ev = eval;
+//     //window.eval('var nb = 666')
+//     //ev('var nb = 555')
+//     // alert(nb)
+//   }
+//   test();
+//    //alert(nb)
+//   //alert(newVar)
+//   //newVar === true
+//  var script = document.createElement('script');
+//  console.log(script,".....script标签........",script.text);
+//
+//   $.nodeName(document,'html') //true
+//   $.nodeName(document.body,'html') //false
+//
+//   //$.each()
+//   var arr1=[1,2,3,];
+//   var arr2 = {name:'m',value:'bbb'}
+//   // $.each(arr1,function(i,value){
+//   //   console.log(i,value,".....")
+//   // })
+//
+//   function callback(i,value){
+//     console.log(this,".....callback");
+//     console.log(i,value,".....");
+//   }
+//   let value;
+//   for ( i in arr2 ) {
+//     value = callback.call( null, i, arr2[ i ] );
+//
+//     if ( value === false ) {
+//       break;
+//     }
+//   }
+//
+//
+//   var divarr = document.getElementsByTagName('div')
+//   console.log($.makeArray(divarr),"........makearay.....")
+//   console.log($.makeArray(123),"/////////....makeArray....")
+//
+// const str = 'hellow';
+// const hh = $.makeArray(str,{length:0});
+// console.log(hh,"......特殊..makearray......");
+//
+// //过滤新数组
+// var gr = [1,2,3,4]
+// var newgrep =  $.grep(gr,function(val,index){
+//   console.log(val,index,".....grepcallback........")
+//   return a>2
+//
+// });
+// console.log(newgrep,".......newgrep.....");
+
+// $(function(){
+//   function show(){
+//     alert(this)
+//   }
+//   // $('input:eq(0)').click(show)
+//   $('input:eq(0)').click($.proxy(show,window))
+//   $('input:eq(1)').click(function(){
+//     $('input:eq(0)').off();
+//   })
+// })
+
+$(function(){
+  // var a = $('#div1').css()
+  // div设置display:none前后
+  console.log($("#div1").width(),"....div width.........");
+  console.log($("#div1").get(0).offsetWidth);
+
+
+})
+
+
+
+
+
+</script>
+
+</html>

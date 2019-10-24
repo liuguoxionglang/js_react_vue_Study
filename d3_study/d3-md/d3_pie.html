@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <title>Document</title>
+    <style>
+            #container {
+                padding-top: 20px
+      
+            }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+    
+</body>
+    <script>
+        //  svg画布的宽高
+        var width = 600,
+            height = 400,
+            data = [
+                {name:"caocao",value:1212},
+                {name:"sunquan",value:1200},
+                {name:"liubei",value:999},
+                ];
+        var svg = d3.select("#container").append("svg").attr("width",width).attr("height",height);
+
+         //svg中添加g元素
+        var g = svg
+            .append("g")
+            .attr("transform","translate(150,150)")
+            //.attr("stroke","red");
+
+        // 创建环形 扇形生成器 并设置内径和外径
+        var arc =d3.arc()
+                    .innerRadius(40)
+                    .outerRadius(100)
+        
+        // 创建饼图生成器，并转换数据，以供arc使用
+        var arcs = d3.pie().value(function(d){return d.value})(data);
+        console.log(arcs,"...arcs...");
+        
+        // 添加饼图路径
+        g
+        .selectAll("path")
+        .data(arcs)
+        .enter()
+        .append("path")
+        .attr("fill", function(d){ return `rgb(${Math.random()*255},${Math.random()*255},${Math.random()*255})`})
+        .attr("d", arc)
+
+        // 添加标签数据
+        g.selectAll("text")
+        .data(arcs)
+        .enter()
+        .append("text")
+        .text(function(d){return d.data.name})
+        .attr("transform",function(d){return `translate(${arc.centroid(d)})`})
+        // .attr("transform","translate(0,0)")
+        .attr("text-anchor","middle")
+
+        // 添加标题
+        g
+        .append("text")
+        .attr("class","centertext")
+        .text("战斗力")
+        .attr("transform","translate(0,0)")
+        .attr("text-anchor","middle")
+        
+
+        
+
+
+
+
+    </script>
+</html>

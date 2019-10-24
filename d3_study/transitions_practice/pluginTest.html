@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="./bar_sort_plugin.js"></script>
+    <title>Document</title>
+</head>
+<body>
+        <div id="container">
+
+            </div>
+    
+</body>
+<script>
+      var 
+        data = [
+        {
+            date: 1900,
+            name: "Russian",
+            value: 800,
+            color:'red',
+            id:0,
+        },
+        {
+            date: 1900,
+            name: "China",
+            value:820,
+            color:'green',
+            id:1,
+        },
+        {
+            date: 1900,
+            name: "Japan",
+            value: 790,
+            color:'blue',
+            id:2,
+        },
+        {
+            date: 1900,
+            name: "American",
+            value: 810,
+            color:'pink',
+            id:3,
+        },
+    ],
+        containerid = "#container"
+        options = {
+            svg_width : 800,
+            svg_height :600,
+            chart_margin :{left:90,top:30,right:60,bottom:30},
+            sort_field:"value",
+            item_identify:"id",
+            labelName_field:"name"
+        };
+   
+       var barsortinstance =  new BarSort(data,containerid,options);
+       //console.log(barsortinstance,"///////");
+        barsortinstance.init();
+       let i = 1;    
+        const inter = setInterval(function(){
+            
+            // if(i>22) {
+            //     clearInterval(inter);
+            //     return;
+            // }
+            i++;
+            data = data.map(item=>{
+                        item.date = item.date + 1;
+                        //console.log(parseInt(Math.random()*100),"ddddddddddddddd");
+                        item.value = item.value + parseInt(Math.random()*100);
+                        return item;
+                    });
+            if(1 === parseInt(Math.random()*5)){
+                //alert("111")
+                const num = parseInt(Math.random()*data.length);
+                const removeitemId = data[num].id;
+                data.splice(num,1);
+
+                data.push({
+                    id:removeitemId+4,
+                    date: 1900,
+                    name: `Japan${parseInt(Math.random()*255)}`,
+                    value: parseInt(Math.random()*1000)+parseInt(Math.random()*600),
+                    color:`rgba(${parseInt(Math.random()*255)},${parseInt(Math.random()*255)},${parseInt(Math.random()*255)})`
+                })
+            }        
+            data = data.sort((a, b) => b.value - a.value);
+
+        barsortinstance.redraw(data)
+        
+        },5000)
+
+</script>
+</html>

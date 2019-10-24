@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>立体按钮按压效果 质感进度条</title>
+    <style>
+            .box{
+                height: 100px; width: 300px;
+                background: blue; margin: 2rem;
+                box-shadow: 0 0 1rem gray;
+                cursor: pointer;
+                transition: all .3s;
+                border-radius: 50px;
+                text-align: center;
+                font-size : 25px;
+                line-height: 100px
+            }
+            .box:active{
+                box-shadow: 0 0 0px gray; 
+                transform: scale(0.99)
+            }
+
+
+
+
+
+            .box1{
+                height: 2rem; 
+                width: 30rem; 
+                box-shadow: 0 0 5px white inset;
+                border: 1px solid black;
+                background:#003366
+            }
+            .progress{
+                width: 1rem;
+                height: 2rem;
+                background: linear-gradient(180deg, #00CCCC,#00CCCC,#009999);
+                transition: all 3s;
+                box-shadow: 0 0px 5px white
+            }
+            .box1:hover .progress{
+                width: 30rem
+            }
+
+
+       
+            ul{
+                margin: 20px 10px;
+                display: flex
+            }
+            li{
+                list-style: none; 
+                width: 100px; 
+                line-height: 40px;
+                 color: white; 
+                 text-align: center;
+                border-right: 2px solid rgba(255,255,255,.2);
+            }
+
+
+
+
+            body{
+                background: linear-gradient(0deg,#006666,#003333)
+            }
+            .title{
+                font-size: 2rem; line-height: 5rem; color: white
+            }
+            .title::before{
+                content: '';
+                display: inline-block;
+                width: .2em; background: yellow; 
+                height: .8em; margin-right: .5em;
+            }
+
+
+
+            </style>
+</head>
+<body>
+        
+        <div class='box'>点击我</div>
+
+        <!-- 进度条要中间亮，两边暗，显得圆鼓鼓的，进度条容器要有内阴影，显示出凹进去的感觉 -->
+        <div class='box1'>
+                <div class='progress'></div>
+        </div>
+
+
+        <ul>
+            <li> 第一名 </li>
+            <li> 第二名 </li>
+            <li> 第三名 </li>
+        </ul>  
+        
+        <div class='title'>
+            用户数据
+        </div>
+
+
+        <!-- 区域凸显
+            让区域高亮一般用于凸显用户选择，常用方法如下：
+
+            修改 background 的 RGBA 颜色，适量调高每个分量（或A分量调整背景透明度）|| 修改 filter: brightness 的值
+            可考虑用 transfrom: scale(1.1) 放大凸显 && 增加阴影
+            加上极少量的 transition 增加过渡效果
+
+        区域暗淡
+            暗淡部分区域，降低用户注意力，比如已完成，或者未解锁的：
+
+            修改 background 的 RGBA 颜色，适量降低每个分量 || 修改 filter: brightness
+            绝对定义一张黑色半透明蒙版(屏蔽点击)置于其上，可用半透明+高斯模糊加强效果，通过after/before 伪类实现（attr）批量设置 -->
+
+    
+</body>
+</html>

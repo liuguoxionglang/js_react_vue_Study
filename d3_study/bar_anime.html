@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <style>
+        #container {
+            width:800px;
+            height:600px;
+            position: relative;
+            border:1px solid red;
+        }
+        #container div {
+            position: absolute;
+            height :50px;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+</body>
+<script type="text/javascript">
+    $(function(){
+        var data = [
+       {
+         id:0,
+         date: 1900,
+         name: "Russian",
+         value: 900,
+         color:'red'
+       },
+       {
+        id:1,
+         date: 1900,
+         name: "China",
+         value:920,
+         color:'green'
+       },
+       {
+         id:2,
+         date: 1900,
+         name: "Japan",
+         value: 890,
+         color:'blue'
+       },
+       {
+        id:3,
+         date: 1900,
+         name: "American",
+         value: 850,
+         color:'pink'
+       },
+     ],
+        data = data.sort((a,b)=> b.value - a.value);
+        var width = 800;
+        var height = "50px";
+        for(let i=0;i<data.length;i++){
+            const div = document.createElement("div");
+            div.style.width = data[i].value*width/data[0].value+"px";
+            div.style.backgroundColor = data[i].color;
+            div.style.top = i*60 +"px";
+            div.setAttribute("id","bar-"+data[i].id)
+            div.innerHTML = data[i].name +"-------"+ data[i].value;
+            $("#container").append(div)
+        };
+        setInterval(function(){
+                data = data.map(item=>{
+                    item.date = item.date + 1;
+                    item.value = item.value + parseInt(Math.random()*100);
+                    return item;
+                });
+                if(1 === parseInt(Math.random()*5)){
+                    //alert("111")
+                    data.splice(parseInt(Math.random()*data.length),1);
+                    data.push({
+                        id:parseInt(Math.random()*data.length+10),
+                        date: 1900,
+                        name: `Japan${parseInt(Math.random()*255)}`,
+                        value: parseInt(Math.random()*1000)+parseInt(Math.random()*600),
+                        color:`rgba(${parseInt(Math.random()*255)},${parseInt(Math.random()*255)},${parseInt(Math.random()*255)})`
+                    })
+                }
+                data = data.sort((a, b) => Number(b.value) - Number(a.value));
+                console.log(data,".........sort ....data...");
+                
+               const children =  $("#container").children();
+
+               const childrensId = []; //已经存在的div的id
+               for(let j=0;j<children.length;j++) {
+                    childrensId.push( children[j].getAttribute("id") ); 
+                };
+                
+                //console.log(children,"..............children,,,,,,,,,",childrensId);
+                // 遍历更新后的数据
+                let lastExitId;
+                for(let i=0;i<data.length;i++){
+                    let width1 =  data[i].value*width/data[0].value+"px";
+                    let id = 'bar-'+data[i].id ;
+                    if(childrensId.includes(id)){ // 新数组中的当前id已存在
+                        lastExitId = id;
+                        $(`#${id}`).html(data[i].name +"-------"+ data[i].value);
+                        anime(
+                            {
+                            targets:`#${id}`,
+                            width:width1,
+                            top: i*60 +"px",           
+                            duration:1000,
+                            easing: 'easeInOutQuint',
+                            
+                        });
+                        childrensId.splice(childrensId.indexOf(id),1)
+                    }else {// 新数组中的当前id不存在,在上一个已经存在的id后面插入一个元素
+                        const div = document.createElement("div");
+                        div.style.width = data[i].value*width/data[0].value+"px";
+                        div.style.backgroundColor = data[i].color;
+                        div.style.top = i*60 +"px";
+                        div.setAttribute("id","bar-"+data[i].id)
+                        div.innerHTML = data[i].name +"-------"+ data[i].value;
+                        $("#"+lastExitId).after(div);
+                    }
+                };
+                console.log(childrensId,"......childrensId...........");
+                //没有被覆盖的元素节点删除
+                for(let k=0;k<childrensId.length;k++){
+                    $(`#${childrensId[k]}`).remove()
+                }
+                //$("#bar-0").remove();
+
+        },5000);
+     
+     
+    })
+</script>
+</html>

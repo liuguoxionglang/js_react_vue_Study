@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <title>Document</title>
+    <style>
+            #container {
+                padding-top: 20px
+      
+            }
+           
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+    
+</body>
+    <script>
+        //  svg画布的宽高
+        var width = 600,
+            height = 400,
+            margin = {left:60,top:30,right:30,bottom:60}
+            data = [
+                {date:"2019-08-10",value:1212},
+                {date:"2019-08-11",value:1200},
+                {date:"2019-08-12",value:999},
+                {date:"2019-08-13",value:1099},
+                {date:"2019-08-14",value:1299},
+                {date:"2019-08-15",value:899},
+                ];
+        var chart_width = width - margin.left - margin.right;
+        var chart_height = height - margin.top - margin.bottom;        
+        var svg = d3.select("#container").append("svg").attr("width",width).attr("height",height);
+        var g = svg.append("g")
+                .attr("width",chart_width).attr("height",chart_height)
+                .attr("transform",`translate(${margin.left},${margin.top})`);
+
+        // x轴缩放比例
+        var scale_x = d3.scaleBand()
+                    .domain(data.map(item=>item.date))
+                    .range([0,chart_width]);
+
+            // y轴缩放比例
+            var scale_y = d3.scaleLinear()
+                    .domain([0,d3.max(data.map(item=>item.value))+200])
+                    .range([chart_height,0])
+            
+            // 创建x轴
+            var xaxis = d3.axisBottom(scale_x);
+            // 创建y 轴
+            var yaxis = d3.axisLeft(scale_y);
+            
+            // 添加x轴到画布
+            g.append("g").call(xaxis).attr("transform",`translate(0,${chart_height})`)
+            // 添加y轴到画布
+            g.append("g").call(yaxis)
+
+            // 创建区域生成器
+            var area = d3.area()
+                    // .defined(d => !isNaN(d.value))
+                    .x(function(d){
+                        console.log(d.date,scale_x(d.date),"..............scale_x(d.date).........")
+                        return scale_x(d.date)})
+                    .y0(scale_y(0))    
+                    .y1(function(d){
+                        console.log(scale_y(d.value),"...y.....")
+                        return scale_y(d.value)})
+            
+            // 添加折现
+            g.append("path")
+            .datum(data)
+            .attr("fill", "rgba(126,230,129,0.5)")
+            .attr("stroke", "rgba(126,230,129,0.5)")
+            .attr("stroke-width", 3)
+            // .attr("stroke-linejoin", "round")
+            // .attr("stroke-linecap", "round")
+            .attr("d", area);
+
+            // svg.append("path")
+            // .datum(data.filter(area.defined()))
+            // .attr("fill", "#eee")
+            // .attr("d", area);
+
+
+    </script>
+</html>

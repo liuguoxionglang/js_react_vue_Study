@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .main {
+            width: 500px;
+            border: 1px solid red;
+        }
+
+        .left,
+        .right {
+            width: 40%;
+            height: 12ex;
+            background-color: seagreen;
+        }
+
+        .left {
+            -webkit-shape-outside: polygon(0 0, 100% 100%, 0 100%);
+            shape-outside: polygon(0 0, 100% 100%, 0 100%);
+            float: left;
+            -webkit-clip-path: polygon(0 0, 100% 100%, 0 100%);
+            clip-path: polygon(0 0, 100% 100%, 0 100%);
+        }
+
+        .right {
+            -webkit-shape-outside: polygon(100% 0, 100% 100%, 0 100%);
+            shape-outside: polygon(100% 0, 100% 100%, 0 100%);
+            float: right;
+            -webkit-clip-path: polygon(100% 0, 100% 100%, 0 100%);
+            clip-path: polygon(100% 0, 100% 100%, 0 100%);
+        }
+
+        p {
+            text-align: center;
+            color: red
+        }
+
+        .layout {
+            margin-top: 50px;
+            border: 1px solid red;
+        }
+        .layout div {
+            width:100%;
+            height: 30px;
+        }
+        /* 选择类名为layout下面的素有div元素，再选择被选中的元素之后的所有元素 */
+        .layout>div+div{
+            border-top: 1px solid green;
+
+        }
+        .tranigle{
+            /* width: 200px;
+            height:200px; */
+            width: 0px;
+            height:0px;
+            background-color: blue;
+            border: 100px solid red;
+            margin-top: 50px;
+            border-color: green burlywood red blue;
+        }
+        .text {
+            font-size: 0;
+            /* text-indent: -2000px; */
+        }
+        .center{
+            width:500px;
+            height:300px;
+            border: 1px solid red;
+            display: flex
+
+
+        }
+        .center div {
+            width:50px;
+            height: 50px;
+            border: 1px solid red;
+            margin: auto
+        }
+        img {
+            width:100px;
+            height: 50px;
+            object-fit: cover
+        }
+        .fit_content {
+            border: 1px solid red;
+            width: fit-content;
+            margin: auto
+        }
+        /* 在此处定义全局作用域的css变量 */
+        :root {
+            --mywidth: 500px;
+        }
+
+        .mydifined{
+            width:var(--mywidth);
+            height:100px;
+            border: 1px solid red
+        }
+
+        .resize {
+            width: 100px;
+            height: 200px;
+            border: 1px solid red;
+            resize: auto;
+
+        }
+
+    </style>
+</head>
+<body>
+    <!-- 
+        shape-outside: 定义了一个可以是非矩形的形状，相邻的内联内容应围绕该形状进行包装,提供了一种自定义此包装的方法，可以将文本包装在复杂对象周围而不是简单的框中
+        clip-path:创建一个只有元素的部分区域可以显示的剪切区域。区域内的部分显示，区域外的隐藏
+        display:flow-root  元素生成块容器框，并使用流布局将其内容列出来。它总是为其内容建立新的块格式化上下文。
+        position:relative absolute 绝对定位和固定定位时，同时设置 left 和 right 等同于隐式地设置宽度
+       
+     
+
+
+    -->
+    <!-- <div class="main">
+        <div class="left"></div>
+        <div class="right"></div>
+        <p>
+          Sometimes a web page's text content appears to be
+          funneling your attention towards a spot on the page
+          to drive you to follow a particular link. Sometimes
+          you don't notice.to drive you to follow a particular link. Sometimes
+          you don't notice.
+        </p>
+      </div> -->
+
+
+
+      <!-- 相邻兄弟选择器之常用场景  加边框线 -->
+      <!-- <div class="layout">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+      </div> -->
+
+
+
+
+      <!-- css绘制三角形 -->
+      <!-- <div class="tranigle"></div> -->
+
+
+      <!-- 线性渐变应用-----css绘制彩带的原理 -->
+
+
+      <!-- 隐藏文字内容的两种办法 -->
+      <div class="text">
+            flsjfkldsfdskjkklkfdsf
+      </div>
+
+
+
+      <!-- 实现水平 垂直居中的简易方法 -->
+      <!-- <div class="center">
+          <div></div>
+      </div> -->
+
+
+
+      <!-- 圆锥渐变  角向渐变 conic-gradient(red, orange, yellow, green, blue); -->
+
+      <!-- 背景位置百分比---background-position百分比的正确理解方式：图片自身的百分比位置与容器同样的百分比位置重合 -->
+
+      <!-- outline使用-----可以使用outline来描边，不占地方，它甚至可以在里面 -->
+
+      <!-- 动画暂停-------CSS动画其实是可以暂停的  animation-play-state:paused   -->
+
+      <!-- object-fit=====图片在指定尺寸后，可以设置object-fit为contain或cover保持比例 -->
+      <!-- <img src="https://raw.githubusercontent.com/liuguoxionglang/react-redux/master/p.jpg" alt="" > -->
+
+
+      <!-- fit-content --设置宽度为fit-content，可以使block像inline-block那样实现收缩宽度包裹内容的效果 -->
+      <!-- <div class="fit_content">
+          fdfdfdfffffffffff
+      </div> -->
+
+
+      <!-- 自定义属性---CSS自定义属性的简单使用 -->
+      <!-- <div class="mydifined">
+
+      </div> -->
+
+      <!-- min-content/max-content----可以设置宽度为min-content和max-content，前者让内容尽可能地收缩，后者让内容尽可能地展开 -->
+
+      <!-- 逐帧动画---------利用CSS精灵实现逐帧动画 -->
+      <!-- resize-------普通元素也可以像textarea那样resize -->
+      <div class="resize">
+
+      </div>
+
+</body>
+</html>

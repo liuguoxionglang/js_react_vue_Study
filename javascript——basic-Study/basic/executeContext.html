@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>函数的 执行上下文</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+  // 栈：先进后出的数据结构;在栈顶完成数据 push(),pop()
+
+  /**
+   * 执行上下文
+   *  函数执行环境--函数执行上下文
+   *  执行环境栈 execute Context stack
+   *  执行上下文 存放在执行环境栈中
+   *
+   * js代码执行之前：创建全局的执行上下文（Global execution context）压入执行环境栈中
+   *
+   *
+   * @return {[type]} [description]
+   */
+
+  function a(){
+      console.log("a");
+  }
+  function b(){
+      console.log("b");
+      c();
+  }
+  function c(){
+      console.log("c");
+      d();
+  }
+  function d(){
+      console.log("d");
+  }
+  // a();// a  进入a函数执行 进入函数之前，创建a函数的执行上下文，压入执行环境栈中，此函数执行完后，弹出栈中的a函数执行上下文，
+  // b();//b c d
+
+
+//函数  变量的提升
+  function mm() {
+    console.log(f)//function
+    var f = 9;
+    function f(){
+    }
+    console.log(f)//9
+  }
+  for (var i = 0; i < 3; i++) {
+    setTimeout(() => console.log(i), 1)
+  }
+
+  for (let i = 0; i < 3; i++) {
+    setTimeout(() => console.log(i), 1)
+  }
+
+
+</script>
+</html>

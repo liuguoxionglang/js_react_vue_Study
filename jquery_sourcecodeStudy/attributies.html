@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+  <style>
+    #div1{
+      width:100px;
+      height:100px;
+      background:red;
+      position:absolute
+    }
+  </style>
+</head>
+<body>
+  <!-- <div id="div1"></div> -->
+
+  <input type="checkbox" id="chbox">
+  <input type="radio" id = "radio">
+  <select name="" id="selct">
+    <option value=""></option>
+    <option value=""></option>
+    <option value=""></option>
+  </select>
+
+
+</body>
+<script type="text/javascript">
+  $(function(){
+    // $("#div1").attr({title:"hello"});
+    // console.log($("#div1").attr("title"));
+    //设置属性  原生的
+    var div1  = document.getElementById("div1");
+    // div1.setAttribute("title","word");
+    // 自定义属性
+    // div1.setAttribute("lz","钟灵")
+
+
+    // $("#div1").prop({title:"hello"});
+    // console.log($("#div1").prop("title"));
+    // //设置属性  原生的
+    // div1.title = "name";
+   // div1["title"] = 12;
+    // // 自定义属性
+    // div1.lzz = "钟灵1"
+
+   //$("input").attr("checked","checked")
+  // jquery中已经兼容了下面方法
+   //$("input").attr("checked",true)
+
+ // 可以同事删除多个属性
+  $("#div1").removeAttr("id lz ")
+
+
+
+  $("#div1").addClass("box1 box2")
+  $("#div1").removeClass("box1 box2")
+  //回调函数
+  $("#div1").addClass(function(index){
+     return box + index;
+  })
+
+ $("#div1").toggleClass("box1 box2")
+ $("#div1").toggleClass("box1 box2",true) // 添加
+ $("#div1").toggleClass("box1 box2",false) // 删除
+
+
+
+  $("#chbox").get(0).type
+  $("#selct").get(0).type
+  $("#selct").get(0).nodeName
+  $("option").eq(0).get(0).type
+  $("option").eq(0).get(0).nodeName
+  $("option").eq(0).get(0).value
+
+  $("input").val(['11'])
+
+
+
+  })
+
+</script>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>执行上下文详解-----见图executeContext_describle.jpg</title>
+</head>
+<body>
+
+</body>
+<script>
+  //变量声明
+  var a1 = 20;
+  var a2 = 9;
+  var a3 = "22";
+  var b1 = {name:'llll'};
+
+
+ //函数调用
+  a1 = f1(a1,a2);
+
+  //函数声明
+  function f1(a,b){
+    // f1函数的执行上下文
+    // 1、扫描参数 a = 20 b = 9
+    // 2、扫描函数声明 f2
+    // 3、扫描变量声明 t、m、i
+
+    var t,m = 10;
+    t = a*b;
+    for(var i=0;i<a;i++) {
+      console.log(i)
+    }
+    console.log(a+b);
+    function f2() {
+      console.log(f2)
+    }
+    return t + m;
+  }
+
+
+
+</script>
+</html>

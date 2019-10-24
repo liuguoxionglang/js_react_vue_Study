@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <title>Document</title>
+    <style>
+            #container {
+                padding-top: 20px
+      
+            }
+            svg {
+                overflow:visible;
+                margin:50px;
+                font: 2em Open Sans, Impact;
+            }
+           
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+    
+</body>
+    <script>
+        //  svg画布的宽高
+        var width = 600,
+            height = 400,
+            margin = {left:60,top:30,right:30,bottom:60}
+            data =[[30, 230], [130, 150],[230, 180], [330, 330], [430, 250], [530, 280], [630, 180], [680, 250]];
+        var chart_width = width - margin.left - margin.right;
+        var chart_height = height - margin.top - margin.bottom;        
+        var svg = d3.select("#container").append("svg").attr("width",width).attr("height",height);
+        //图表区域
+        var g = svg.append("g")
+                .attr("width",chart_width).attr("height",chart_height)
+                .attr("transform",`translate(${margin.left},${margin.top})`);
+        // 标题        
+        var curve_type = svg.append("g").attr("width",100).attr("height",28)        
+
+        // x轴缩放比例
+        var scale_x = d3.scaleLinear()
+                    .domain([0,d3.max(data.map(item=>item[0]))])
+                    .range([0,chart_width]);
+
+        // y轴缩放比例
+        var scale_y = d3.scaleLinear()
+                .domain([0,d3.max(data.map(item=>item[1]))])
+                .range([chart_height,0])
+        
+        // 创建x轴
+        var xaxis = d3.axisBottom(scale_x);
+        // 创建y 轴
+        var yaxis = d3.axisLeft(scale_y);
+        
+        // 添加x轴到画布
+        g.append("g").call(xaxis).attr("transform",`translate(0,${chart_height})`)
+        // 添加y轴到画布
+        g.append("g").call(yaxis)
+
+        // 创建区域生成器
+        var lineGenerator =  lineGenerator = d3.line()
+                    .x(function(d) {
+                        // 按照缩放比例缩放
+                        return scale_x(d[0])
+                    })
+                    .y(function(d) {
+                        // 按照缩放比例缩放
+                        return scale_y(d[1]);
+                    });
+        
+        //  添加折线，用于比较 方式一
+        // g.append('path')
+        //         .attr('stroke', '#ccc')
+        //         .attr('stroke-width', '2')
+        //         .attr('fill', 'none')
+        //         .attr('d', lineGenerator(data));
+        
+         //添加折线，用于比较 方式二
+        g.append('path').datum(data)
+        .attr('stroke', '#000')
+        .attr('stroke-width', '2')
+        .attr('fill', 'none')
+        .attr('d', lineGenerator);        
+
+    //  获取颜色组合
+        var colors = d3.schemePaired, //十二分类颜色
+        //  获取相关的曲线工厂
+        curves = ['curveBasis', 'curveBasisClosed', 'curveBasisOpen', 'curveBundle', 'curveCardinal','curveCardinalClosed',
+                 'curveCardinalOpen', 'curveCatmullRom', 'curveCatmullRomClosed','curveCatmullRomOpen', 'curveLinear','curveLinearClosed',
+                  'curveMonotoneX', 'curveMonotoneY','curveNatural', 'curveStep', 'curveStepAfter', 'curveStepBefore'];
+
+  
+        
+        var i = 0;
+        var inter = setInterval(function(){
+           
+            if(i >= curves.length){
+                console.log(3)
+                clearInterval(inter);
+            }
+            // 获取转化后的曲线数据
+            var lineData = lineGenerator.curve(d3[curves[i]])(data);
+           
+            // 更换标题
+            var text = curve_type.selectAll('.curvetype').remove();
+                curve_type.append("text").attr("class","curvetype").text(curves[i])
+               
+            // 先删除曲线，然后再添加曲线
+            g.selectAll('path.curve').remove();
+            g.append('path')
+                    .classed('curve', true)
+                    .attr('stroke', colors[i%12])
+                    .attr('stroke-width', '2')
+                    .attr('fill', 'none')
+                    .attr('d', lineData);
+            i++;
+
+        },2000)
+
+
+
+
+    </script>
+</html>

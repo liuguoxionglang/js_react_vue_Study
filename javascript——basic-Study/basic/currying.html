@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+  // 在数学和计算机科学中，柯里化是一种将使用多个参数的一个函数转换成一系列使用一个参数的函数的技术。
+  // 通俗易懂的解释：用闭包把参数保存起来，当参数的数量足够执行函数了，就开始执行函数。
+  //
+  // 实现
+  // 判断当前函数传入的参数是否大于或等于fn需要参数的数量，如果是，直接执行fn
+  // 如果传入参数数量不够，返回一个闭包，暂存传入的参数，并重新返回currying函数
+
+   function currying(fn, ...args) {
+     console.log(fn,args,"...................",fn.length)
+      if (args.length >= fn.length) {
+        return fn(...args);
+      } else {
+        return (...args2) => currying(fn, ...args, ...args2);
+      }
+    }
+    function bb(a,b,c,d){
+      console.log(...arguments,"......currying  bb....")
+    }
+    const ll = currying(bb,"a","b")
+
+  // 第二种写法
+  const curry = (f,...arr)=>{
+    return (function(...args){
+      console.log(args,"..curry....")
+      return(a)=>{
+        return a.length === f.length?f(a):curry(f,a);
+      }
+    })(...arr);
+  }
+curry(bb,"a","gett","c","m");
+
+// 应用场景
+// 参数复用
+    function getUrl(protocol, domain, path) {
+      return protocol + "://" + domain + "/" + path;
+    }
+    // var page1 = getUrl('http', 'www.conardli.top', 'page1.html');
+    // var page2 = getUrl('http', 'www.conardli.top', 'page2.html');
+    // 我们使用currying来简化它：
+    let conardliSite = currying(getUrl)('http', 'www.conardli.top');
+    let page1 = conardliSite('page1.html');
+    console.log(page1,".........................page1")
+
+
+</script>
+</html>

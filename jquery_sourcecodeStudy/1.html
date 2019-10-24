@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script src="https://cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+<script type="text/javascript">
+
+  /**
+   *
+   *   ()();
+   * 匿名函数自执行
+   * @return {[type]} [description]
+   *
+   * 好处：内部代码全部都是局部的，防止和其它代码冲突;
+   *  jquery 是一个面向对象的语言  例如 $('#div1').css() 其中$('#div1')相当于new出来的一个对象实例
+   * 传window,访问速度快，压缩版本里面方便
+   *
+   *
+   */
+
+  (function(window){
+    var a = 6;
+    console.log(a);
+    //向外抛出
+  //  Window.$ = a;
+  })(window)
+//  console.log(a);
+
+ //实例方法
+  $('#div1').css();
+  // $是函数，$()是jq对象 ，是实例
+
+  //扩展工具方法-----静态方法、静态属性，既可以给实例，也可以给原生的js应用
+  // $.trim();
+  // $.proxy();
+
+
+  // 函数的统一管理
+  function aa(){
+    alert(1)
+  }
+  function bb(){
+      alert(2)
+  }
+  var callback = $.Callbacks();
+  callback.add(aa);
+  callback.add(bb);
+  callback.fire() // 1,2
+  callback.remove(aa);
+  callback.fire() // 1
+
+
+  //对异步的同一管理
+  setTimeout(function(){
+    alert(1)
+  },1000)
+  alert(2);
+  //为了先弹出1 后弹出2
+  var defered = $.Deferred();
+  setTimeout(function(){
+    alert(1);
+    defered.resolve();
+  },1000);
+  defered.done(function(){
+    alert(2);
+  })
+
+
+
+
+
+
+</script>
+</html>

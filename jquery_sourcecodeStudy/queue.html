@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+  <style>
+    #div1{
+      width:100px;
+      height:100px;
+      background:red;
+      position:absolute
+    }
+  </style>
+</head>
+<body>
+  <div id="div1"></div>
+
+
+</body>
+<script type="text/javascript">
+  $(function(){
+    function aa (){
+      console.log("aa")
+    }
+    function bb(){console.log("bbb")}
+
+     // $.queue(document,"q1",aa);
+     // $.queue(document,"q2",bb);
+     // $.dequeue(document,"q1")
+     // $.dequeue(document,"q2")
+
+        // $(document).queue("q1",aa);
+        // $(document).queue("q2",bb);
+        // $(document).dequeue("q1")
+        // $(document).dequeue("q2")
+
+    // 执行顺序
+    $("#div1").click(function(){
+      // $(this).animate({width:400},2000); // setInterval 定时器 不断变化
+      // $(this).animate({height:400},2000);
+      // $(this).animate({left:400},2000);
+
+      // $(this).animate({width:400},2000).animate({height:400},2000).animate({left:400},2000);
+
+      // $(this).animate({width:400},2000).queue("fx",function(){$(this).dequeue()}).animate({left:400},2000);
+        // $(this).animate({width:400},2000).queue(function(){$(this).dequeue()}).animate({left:400},2000);
+        //
+        // $(this).animate({width:400},2000).queue(function(nex){next()}).animate({left:400},2000);
+        // $(this).animate({width:400},2000).queue(function(nex){
+        //   $(this).css({height:500})
+        //   next()
+        // }).animate({left:400},2000);
+
+        // $(this).animate({width:400},2000,function(){
+        //   $(this).css({height:500})
+        // }).animate({left:400},2000);
+
+        // 高和左定位同时执行了
+        // $(this).animate({width:400},2000,function(){
+        //   var This = this;
+        //   var timerid = setInterval(function(){
+        //     This.style.height = This.offsetHeight + 1 +'px';
+        //     if(This.offsetHeight === 200){
+        //       clearInterval(timerid)
+        //     }
+        //   },30);
+        // }).animate({left:400},2000);
+
+
+        // $(this).animate({width:400},2000).queue(function(next){
+        //   var This = this;
+        //   var timerid = setInterval(function(){
+        //     This.style.height = This.offsetHeight + 1 +'px';
+        //     if(This.offsetHeight === 200){
+        //       next()
+        //       clearInterval(timerid)
+        //     }
+        //   },30);
+        // }).animate({left:400},2000);
+
+
+        // delay延迟队列执行
+        // $(this).animate({width:400},2000).queue.delay(200).animate({left:400},2000)
+
+
+        $(this).animate({width:400},2000).animate({left:400},2000);
+        $(this).promise().done(function(){
+          alert("bbbbbbb")
+        })
+
+
+
+    })
+
+
+
+
+
+  })
+
+</script>
+</html>
